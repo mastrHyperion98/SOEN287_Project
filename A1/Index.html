@@ -143,8 +143,53 @@
             alt="Example Account Creation Image not found!" style ="width: 50%;">
             <figcaption>Fig.2 - Example Account Creation Screen </figcaption>
         </figure>
-        <br>In order to create an account we will require a username, email, password and phone number.
+        <br>In order to create an account we will require a username, email and a password.
         The email address will be used to login while the username will be the name displayed to other users. 
+        <br>
     </p>
+
+    <h4>Account Settings</h4>
+
+    <p>In the account settings page the user will be able to change his/her username, email address and password.
+        Users will also be able to download all their channels data here as well. Channel Data is a contactenation of
+        all messages sent and recieved. Download it through the account settings will download all messages of all active channels.
+        <strong>Figure three</strong> shows a rough draft of the account settings page. 
+        <figure>
+            <img src="Account Profile.png"
+             alt="Draft not found" style="width: auto; height: auto;">
+             <figcaption>Fig.3 - Draft of Account Profile Settings</figcaption>
+        </figure>
+
+        <br><strong>Figure 3</strong> also shows a textfield with the label Account Permalink. 
+        This permalink is used to rapdily search and invite other users to a channel. However, the field 
+        is disabled and cannot be modified by the user. Password is the current password of the user and it must
+        be filled in when clicking the Apply changes button. Otherwise an error message will be sent to the user
+        telling them that the field is required. Apply changes will communicate with the Flask api and update the 
+        database entries. This is only a draft and is likely going to differ greatly from the final results. 
+    </p>
+
+    <h4>Channel Settings</h4>
+     <p>
+    Channel Settings page will allow users to do the following commands: 
+    <ul>
+        <li>Change Channel Name.</li>
+        <li>Invite Users.</li>
+        <li>Remove Users</li>
+        <li>Set a user as a moderator (grants them authority to remove users of lower privilege)</li>
+        <li>Adminstrators (owners of the channels) can download the messaging history of the channel.</li>
+    </ul>
+        <figure>
+            <img src="Channels settings.png"
+             alt="Draft not found" style="width: auto; height: auto;">
+             <figcaption>Fig.4 - Draft of Channels Settings</figcaption>
+        </figure>
+     <br>
+    <strong>Figure 4</strong> shows a rough draft of the channel settings screen. The particular rough draft shows
+    the members settings section of the website. However, other functions similar to those shown in <strong> figure 3</strong>
+    will also be available. On the left hand side of the image we can find a toolbar with the various different options/settings 
+    available to the user. This screen is only available to the admin of the channels and moderators can only invite members or remove
+    members of lower privilege.<br>
+    </p>
+    <h4>Create Channel</h4>
 </body>
 </html>
