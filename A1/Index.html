@@ -26,27 +26,125 @@
         <li>Send and recieve messages posted to the channel.</li>
         <li>Download a log of all conversations recorded on the server.</li>
         <li>Delete all conversation record upon deletion of a channel.</li>
-        <li>Optional Features: 
+        <li>Optional Features (Features that will be implememnted if enough time): 
             <ul>
                 <li>Send and recieve images.</li>
                 <li>Send and recieve hyperlinks.</li>
                 <li>Send and recieve private messages.</li>
                 <li>Send and recieve friend requests.</li>
                 <li>Upload zip files to the server.</li>
+                <li>Email verification when creating a new account</li>
+                <li>Account Recovery</li>
             </ul>
         </li>
     </ul>
      <p><br>
         The goal of the project is to allow a user to create <em>channels</em> and converse with other members of the channel.
-        The emphasis will be placed on using the website for teamwork and work related interactions. It is not meant to 
-        be used as a gaming social media platform, but a serious privacy and security focused professional tool.   
+        The emphasis will be placed on using the website for teamwork and work related interactions. The project has several constraints
+        that will impact the size of the project. Namely, I also have two heavier projects in 
+        Comp 345 and Comp 371. Consequently, I need to ensure that I assign myself a workload that I can 
+        manage given this circumstance. It is also important to note that this project is done on individually.
+        It is not meant to be used as a gaming social media platform, but a serious privacy and security focused professional tool.
+        In otherwords, the purpose of the website is to provide a free and open-source alternative to Facebook's messenger,
+        Discord or Twitter for those who want to get work done. 
     </p>
 
     <hr/>
 
     <h2>Website Layout</h2>
-
-    The website is going to use a minimalistic approach to creating the website. In truth, it will borrow a lot of its layout from discord. It will have three primary pages shown in the table below: 
+    <p>
+    The website is going to use a minimalistic approach to creating the website. Please keep in the mind that the following examples may not be final. 
+    The layout and color scheme will be changed to accomodate the choosen design. In the meantime, the examples just
+    showcase the desired approaximate layout for each sections. It will have six primary pages shown in the table below:<br>
+    </p>
+   
     
+    <table border="1">
+        <caption> Main Website Pages</caption>
+        <tr>
+            <th></th>
+            <th>Page Name</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Sign In</td>
+            <td>User input their unique credentials to acquire a login token
+                and gain access to their channels.
+            </td>
+
+        </tr>
+        <tr>
+            <td>2</td>
+            <td> Create Account</td>
+            <td> Create an Account page. A page that will prompt the user
+                 to register an account.</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td> Account Settings </td>
+            <td>Contains user profiles and options</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td> Channel Settings</td>
+            <td>A page that contains all channel related settings.</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td> Create Channel</td>
+            <td>A simple pop-up page that prompt the user to enter the required
+                information to create a new channel.
+            </td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Dashboard</td>
+            <td>The dashboard is the page that shows a list of all the channels 
+                available to the user.Furthermore, it shows the messaging board 
+                for the currently active channel, if applicable. All settings 
+                widgets can be assessed from here.
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <h4>Sign in</h4>
+
+    <p>Sign in is a fundamental feature that is important for the website to work. 
+        As such the user experience should be made clear, simple and quick.
+        <strong>Figure 1</strong> shows an example login screen. <br>
+    </p>
+        <figure>
+            <img src="https://cdn.dribbble.com/users/880269/screenshots/2707708/login-ui-ux-design.jpg"
+            alt="Example Login In Screen Not Found!" style="width:50%">
+            <figcaption>Fig.1 - Example Login Screen .</figcaption>
+          </figure> 
+
+    <p>
+        The login screen will have four major components: 
+        <ul>
+            <li>Email field.</li>
+            <li>Password field.</li>
+            <li>Login button.</li>
+            <li>Create Account label.</li>
+        </ul>
+        <br>
+        As previously mentioned the login screen is used by existing users to gain access to the site. 
+    </p>
+
+    <h4> Create Account </h4>
+
+    <p>Any user who wishes to use the website need to have an account. Therefore, it is important to have an
+        account creation page. <strong>Figure 2</strong> shows an example of an account creation page with all its key elements.
+        <br>
+        <figure>
+            <img src="https://cdn.freshdesignweb.com/wp-content/uploads/site/Modern-Web-Forms.jpg" 
+            alt="Example Account Creation Image not found!" style ="width: 50%;">
+            <figcaption>Fig.2 - Example Account Creation Screen </figcaption>
+        </figure>
+        <br>In order to create an account we will require a username, email, password and phone number.
+        The email address will be used to login while the username will be the name displayed to other users. 
+    </p>
 </body>
 </html>
