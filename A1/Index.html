@@ -17,7 +17,7 @@
         <a href="https://discordapp.com/">discord</a>. 
         The website will not be as ambitious due to various constraints. However, it will support the following features:
     </p>
-    <ul>
+    <ul id="FeatureList">
         <li>Create an account.</li>
         <li>Sign in.</li>
         <li>Sign out.</li>
@@ -69,7 +69,7 @@
         </tr>
         <tr>
             <td>1</td>
-            <td>Sign In</td>
+            <td><a href="#SignIn">Sign In</a></td>
             <td>User input their unique credentials to acquire a login token
                 and gain access to their channels.
             </td>
@@ -77,30 +77,30 @@
         </tr>
         <tr>
             <td>2</td>
-            <td> Create Account</td>
+            <td><a href="#CreateAccount">Create Account</a></td>
             <td> Create an Account page. A page that will prompt the user
                  to register an account.</td>
         </tr>
         <tr>
             <td>3</td>
-            <td> Account Settings </td>
+            <td> <a href="#AccountSettings">Account Settings</a> </td>
             <td>Contains user profiles and options</td>
         </tr>
         <tr>
             <td>4</td>
-            <td> Channel Settings</td>
+            <td> <a href="#ChannelSettings">Channel Settings</a></td>
             <td>A page that contains all channel related settings.</td>
         </tr>
         <tr>
             <td>5</td>
-            <td> Create Channel</td>
+            <td> <a href="#CreateChannel">Create Channel</a></td>
             <td>A simple pop-up page that prompt the user to enter the required
                 information to create a new channel.
             </td>
         </tr>
         <tr>
             <td>6</td>
-            <td>Dashboard</td>
+            <td><a href="#Dashboard">Dashboard</a></td>
             <td>The dashboard is the page that shows a list of all the channels 
                 available to the user.Furthermore, it shows the messaging board 
                 for the currently active channel, if applicable. All settings 
@@ -110,7 +110,7 @@
     </table>
     <br>
     <br>
-    <h4>Sign in</h4>
+    <h4 id="SignIn">Sign in</h4>
 
     <p>Sign in is a fundamental feature that is important for the website to work. 
         As such the user experience should be made clear, simple and quick.
@@ -134,7 +134,7 @@
         As previously mentioned the login screen is used by existing users to gain access to the site. 
     </p>
 
-    <h4> Create Account </h4>
+    <h4 id="CreateAccount"> Create Account </h4>
 
     <p>Any user who wishes to use the website need to have an account. Therefore, it is important to have an
         account creation page. <strong>Figure 2</strong> shows an example of an account creation page with all its key elements.
@@ -149,7 +149,7 @@
         <br>
     </p>
 
-    <h4>Account Settings</h4>
+    <h4 id="AccountSettings">Account Settings</h4>
 
     <p>In the account settings page the user will be able to change his/her username, email address and password.
         Users will also be able to download all their channels data here as well. Channel Data is a contactenation of
@@ -169,7 +169,7 @@
         database entries. This is only a draft and is likely going to differ greatly from the final results. 
     </p>
 
-    <h4>Channel Settings</h4>
+    <h4 id="ChannelSettings">Channel Settings</h4>
      <p>
     Channel Settings page will allow users to do the following commands: 
     <ul>
@@ -191,7 +191,7 @@
     available to the user. This screen is only available to the admin of the channels and moderators can only invite members or remove
     members of lower privilege.<br>
     </p>
-    <h4>Create Channel</h4>
+    <h4 id="CreateChannel">Create Channel</h4>
     <p>
         Creating a channel on the website will be a similar process to creating a channel on discord. 
         Unlike discord, this website will not support voice communication. Therefore, there will be no Voice Channels.
@@ -204,6 +204,32 @@
             alt="Create channel example not found" style="width: auto; height: auto;">
             <figcaption>Fig.5 - Create Channel  <a href="https://discordapp.com/">discord</a> example</figcaption>
         </figure>
+    </p>
+
+    <h4 id="Dashboard">Dashboard</h4>
+
+    <p>
+        The dashboard is the primary page of the website. The dashboard will display all the available channels/chatrooms available to the user.
+        Furthermore, it will also have the messaging textbox for the currently active channel. The page will also have label, links or buttons that will
+        redirect the user to various portions of the website. Wether it is the channel creation page or account settings.
+        <strong>Figure 6</strong> shows the planned layout for the dashboard.
+        <figure>
+            <img src="Dashboard.png" alt="dashboard image not found" style="width: auto; height: auto;">
+            <figcaption>Fig.6 - Dashboard rough draft</figcaption>
+        </figure>
+    </p>
+
+    <hr/>
+    <h2>Summary</h2>
+    <p>
+        The website will feature a simple layout and design. I do not want to make something too fancy that will
+        require learning a bunch of external libraries or tools. However, I want the website to be fast, responsive and clean looking. 
+        I am fan of dark themed applications, so I will probably develop the website with that color palette in mind. That being said, 
+        I would like to have multiple CSS color templates available for users to select from. The purpose of the website
+        is to offer a safe, and responsive messaging environment for users. In the future I would like to be able to expand the 
+        functionality and appearance of the website, however, since this is an introductory course to web development
+        I want to keep my expectations reasonable. That is why I have provided a 
+        <a href="#FeatureList"> list of features</a> that I hope to implement throughout the project alongside optional objectives. 
     </p>
 </body>
 </html>
