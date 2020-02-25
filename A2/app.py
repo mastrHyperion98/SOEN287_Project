@@ -12,6 +12,9 @@ def hello_world():
 def login():
     return render_template("Login.html")
 
+@app.route('/create/account')
+def create_account():
+    return render_template("CreateAccount.html")
 
 if __name__ == '__main__':
     app.run()
