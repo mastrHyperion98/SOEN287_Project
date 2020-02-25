@@ -1,0 +1,22 @@
+    .container{
+            background-color: white;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            max-width: 500px;
+            height: auto;
+            margin-top: 250px;
+        }
+    label, input {
+        display: block;
+    }
+    label {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .btn-primary{
+        width: 200px;
+        background-color: #5100ff;
+    }
+    body{
+            background-color: #1e172d;
+    }

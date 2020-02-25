@@ -1,0 +1,12 @@
+#!/bin/sh
+'''exec' /home/hyperion/Documents/University/Winter_2020/SOEN287/soen287-soen287_w2020-92f32006cff5/Assignment/SOEN287_Project/A2/venv/bin/python "$0" "$@"
+' '''
+# -*- coding: utf-8 -*-
+import re
+import sys
+
+from flask.cli import main
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
