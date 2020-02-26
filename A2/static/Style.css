@@ -23,6 +23,7 @@
     .btn-primary{
         width: 200px;
         background-color: #5100ff;
+        color: white;
     }
     body{
             background-color: #1e172d;
