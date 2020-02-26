@@ -27,7 +27,7 @@ def verify_login():
 
 @app.route('/dashboard')
 def dashboard():
-    return "dashboard"
+    return render_template("base_home.html")
 
 
 if __name__ == '__main__':
