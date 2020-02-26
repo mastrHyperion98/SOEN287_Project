@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def index():
     return redirect(url_for("login"))
 
 
@@ -27,7 +27,17 @@ def verify_login():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template("base_home.html")
+    return render_template("Dashboard.html")
+
+
+@app.route('/settings/account')
+def account_settings():
+    return render_template("AccountSettings.html")
+
+
+@app.route('/channels')
+def channels():
+    return render_template("Channels.html")
 
 
 if __name__ == '__main__':
