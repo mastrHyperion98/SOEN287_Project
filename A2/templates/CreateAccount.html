@@ -2,22 +2,22 @@
 {% block title %}{{ super() }} Create Account {% endblock %}
 
 {% block content %}
-<div class="container d-flex justify-content-center center">
-    <form>
+<div class="container d-flex justify-content-center center border-3">
+    <form method="POST" action="{{ url_for('verify_createAccount')}}">
     <label for="email_field">Email Address
-    <input type="email" class="form-control" id="email_field" aria-describedby="emailHelp">
+    <input type="email" class="form-control" id="email_field" name="email" aria-describedby="emailHelp">
     </label>
     <label for="username_field">Username
-    <input type="text" class="form-control" id="username_field" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="username_field" name="username" aria-describedby="emailHelp">
     </label>
     <label for="InputPassword1">Password
-    <input type="password" class="form-control" id="InputPassword1">
+    <input type="password" class="form-control" id="InputPassword1" name="password1">
     </label>
     <label for="InputPassword2"> Confirm Password
-    <input type="password" class="form-control" id="InputPassword2">
+    <input type="password" class="form-control" id="InputPassword2" name="password2">
     </label>
     <div class="col text-center">
-     <button type="submit" class="btn btn-primary">Create Account</button>
+     <button type="submit" class="btn btn-primary" value="Submit">Create Account</button>
     </div>
 </form>
 </div>

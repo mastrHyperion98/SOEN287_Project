@@ -2,7 +2,7 @@
 {% block title %}{{ super() }} Login or Sign Up{% endblock %}
 
 {% block content %}
-<div class="container d-flex justify-content-center center">
+<div class="container d-flex justify-content-center center border-3">
     <form method="POST" action="{{ url_for('verify_login') }}">
     <label for="username_field">Username
     <input type="text" class="form-control" id="username_field" name="username">

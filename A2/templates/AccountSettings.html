@@ -1,2 +1,30 @@
 {% extends "base_home.html" %}
 {% block title %}{{ super() }} Account Settings {% endblock %}
+{% block content %}
+    {{ super() }}
+<div class="container d-flex justify-content-center center border-3">
+   <div class="page-header">
+       <h1>Account Settings</h1>
+       <form id="settings" method="POST" action="{{ url_for('verify_createAccount')}}">
+           <label for="email_field">Email Address
+               <input type="email" class="form-control" id="email_field" name="email" placeholder="{{ email }}">
+           </label>
+           <label for="username_field">Username
+               <input type="text" class="form-control" id="username_field" placeholder="{{ username }}" readonly>
+           </label>
+           <label for="InputPassword1">Password
+               <input type="password" class="form-control" placeholder="new password" id="InputPassword1" name="password1">
+           </label>
+           <label for="UserPermalink">Account Permalink
+               <input class="form-control" type="text" placeholder="{{permalink}}" readonly>
+           </label>
+              <div class="col text-left">
+              <label><a href="/download/{{ permalink }}"> Download Data</a></label>
+           </div>
+           <div class="col text-center">
+               <button type="submit" class="btn btn-primary" value="Submit">Apply Changes</button>
+           </div>
+       </form>
+   </div>
+</div>
+{% endblock %}

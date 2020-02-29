@@ -2,7 +2,7 @@
 {% block title %}{{ super() }}{% endblock %}
 {% block content %}
 {% block navbar %}
-    <nav class="navbar navbar-expand-md fixed-top">
+    <nav class="navbar navbar-expand-md fixed-top border-b1">
         <a class="navbar-brand" href="/dashboard">Insight</a>
         <div class="collapse navbar-collapse d-flex justify-content-end">
             <ul class="navbar-nav">
@@ -14,8 +14,7 @@
                          Account
                      </a>
                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                       <a class="dropdown-item" href="#">Profile</a>
-                       <a class="dropdown-item" href="#">Settings</a>
+                       <a class="dropdown-item" href="/settings/account">Settings</a>
                        <div class="dropdown-divider"></div>
                        <a class="dropdown-item" href="/login">Sign Out</a>
                    </div>
