@@ -5,8 +5,31 @@
         padding-bottom: 40px;
         max-width: 700px;
         }
-    .navbar_row{
+    .dashboard{
+        background-color: #1b262c;
+        margin-top: 10px;
         max-width: 99vw;
+    }
+  .chatbox{
+        height: 600px;
+        width: 1000px;
+        margin-right: 20px;
+        background-color: white !important;
+    }
+
+    .messaging{
+        width: 1000px;
+        margin-right: 20px;
+    }
+    .channel-list{
+        height: 800px;
+        width: 300px;
+        margin-left: -400px;
+        background-color: #1b262c;
+    }
+    #channel-tab a{
+        margin-bottom: 10px;
+
     }
     .border-3 {
         border-width:2px !important;
@@ -39,10 +62,10 @@
         color: #232020;
     }
     body{
-            background-color: #121212;
+            background-color: #121212 !important;
     }
     .navbar{
-        background-color: #6200EE;
+        background-color: #6200EE!important;
     }
     .dropdown-item{
         color:black;

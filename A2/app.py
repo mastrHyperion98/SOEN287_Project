@@ -35,7 +35,9 @@ def verify_login():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template("Dashboard.html")
+    data = {'SOEN287':'SOEN287', "COMP361":"CHRISTINA", "a":"b", "c":"d", "e":"f", "g":"h", "j":"k", "m":"n", "o":"P",
+            "COMP371":"COMP371","COMP490":"COMP490","Hockey":"CANADIEN", "ANIME":"JAPAN","HOLIDAYS":"OVERFLOW"}
+    return render_template("Dashboard.html", channels=data)
 
 
 @app.route('/settings/account')
