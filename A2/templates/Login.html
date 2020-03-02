@@ -3,6 +3,8 @@
 
 {% block content %}
 <div class="container d-flex justify-content-center center border-3">
+   <div class="page-header">
+       <h1>Welcome to Chatty! </h1>
     <form method="POST" action="{{ url_for('verify_login') }}">
     <label for="username_field">Username
     <input type="text" class="form-control" id="username_field" name="username">
@@ -15,5 +17,6 @@
         <label><a href="/create/account"> Create Account</a></label>
     </div>
 </form>
+   </div>
 </div>
 {% endblock %}
