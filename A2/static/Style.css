@@ -1,3 +1,8 @@
+    #send_message.container{
+        height: 20vh;
+        background-color: #121212;
+    }
+
     .container{
         background-color: #f4f4f4;
         position: relative;
@@ -6,32 +11,38 @@
         max-width: 700px;
         }
     .dashboard{
-        background-color: #1b262c;
-        margin-top: 10px;
-        max-width: 99vw;
+        background-color: #121212;
+        margin-top: 30px;
+        height: 65vh;
     }
-  .chatbox{
-        height: 725px;
-        width: 1500px;
-        margin-right: 20px;
-        margin-left: 150px;
-        background-color: white !important;
+    .message_content{
+
+    }
+    .name{
+        color:#6200EE;
+    }
+    .time{
+        float:right;
+        color: #aaa;
     }
 
-    .messaging{
-        width: 1500px;
-        margin-left: 150px;
-        margin-right: 20px;
+    .border-message{
+        border-width: 3px;
+        border-style: solid !important;
+        border-color: black !important;
     }
-    .channel-list{
-        height: 800px;
-        width: 300px;
-        margin-left: 0px;
-        background-color: #1b262c;
+    .message{
+        border: 2px solid #dedede;
+        background-color: white;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0
     }
-    #channel-tab a{
-        margin-bottom: 10px;
 
+    .message::after {
+        content: "";
+        clear: both;
+        display: table;
     }
     .border-3 {
         border-width:2px !important;
