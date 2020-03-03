@@ -11,20 +11,22 @@
         max-width: 99vw;
     }
   .chatbox{
-        height: 600px;
-        width: 1000px;
+        height: 725px;
+        width: 1500px;
         margin-right: 20px;
+        margin-left: 150px;
         background-color: white !important;
     }
 
     .messaging{
-        width: 1000px;
+        width: 1500px;
+        margin-left: 150px;
         margin-right: 20px;
     }
     .channel-list{
         height: 800px;
         width: 300px;
-        margin-left: -400px;
+        margin-left: 0px;
         background-color: #1b262c;
     }
     #channel-tab a{
