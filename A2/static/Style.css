@@ -8,18 +8,28 @@
         position: relative;
         padding-top: 40px;
         padding-bottom: 40px;
-        max-width: 700px;
+        margin-left: 10px;
+        margin-right: 10px;
         }
-    .dashboard{
-        background-color: #121212;
-        margin-top: 30px;
-        height: 65vh;
-    }
-    .message_content{
 
+    #chat.container-fluid{
+        background-color:  #1f1f1f!important;
+        margin-bottom: 5px;
+        padding-top: 10px;
+        margin-top: 5px;
+        height: 85vh;
+    }
+
+    .form{
+        max-width: 700px;
+    }
+     .channel_list{
+        background-color: white!important;
+        height: 85vh;
+        width: 200px !important;
     }
     .name{
-        color:#6200EE;
+        color:white;
     }
     .time{
         float:right;
@@ -33,10 +43,11 @@
     }
     .message{
         border: 2px solid #dedede;
-        background-color: white;
+        background-color:  #1f1f1f;
         border-radius: 5px;
         padding: 10px;
-        margin: 10px 0
+        margin: 10px;
+        color: darkgrey;
     }
 
     .message::after {
@@ -75,7 +86,7 @@
         color: #232020;
     }
     body{
-            background-color: #121212 !important;
+        background-color: #121212 !important;
     }
     .navbar{
         background-color: #6200EE!important;
@@ -106,13 +117,11 @@
         outline: none;
 
     }
-
     nav-item .nav-link, .nav-link:hover{
         color:black;
         background-color: #03DAC6;
         opacity: 0.7;
         background-size: auto;
-
     }
 
 
