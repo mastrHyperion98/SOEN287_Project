@@ -21,12 +21,12 @@ def create_account():
     return render_template("CreateAccount.html")
 
 
-@app.route('/createAccount/verify', methods=['POST'])
+@app.route('/createAccount/verify', methods=['POST', 'GET'])
 def verify_createAccount():
     return redirect(url_for("login"))
 
 
-@app.route('/login/verify', methods=['POST'])
+@app.route('/login/verify', methods=['POST', 'GET'])
 def verify_login():
     #here we can verify the login credential before redirecting to the dashboard
     #we can also add the user to the session here.
