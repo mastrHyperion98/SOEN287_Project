@@ -1,5 +1,5 @@
 import os
-
+import json
 from flask import Flask, render_template, url_for, redirect, request, session, current_app, send_from_directory, \
     send_file
 
@@ -47,7 +47,10 @@ def account_settings():
 
 @app.route('/channels')
 def channels():
-    return render_template("Channels.html")
+    json_str = '''[{"user_name": "Hyperion", "permalink": "HYUBN811ALO2", "last_login": "2020-04-15"}]'''
+
+    user = json.loads(json_str)
+    return render_template("Channels.html", users = user)
 
 
 @app.route('/download/<string:permalink>')
