@@ -19,12 +19,27 @@
         margin-top: 5px;
         height: 84vh;
     }
+     #channel_settings.container-fluid{
+        background-color:  #1f1f1f!important;
+        margin-bottom: 5px;
+        padding-top: 10px;
+        margin-top: 5px;
+        height: 90vh;
+    }
     #dash_nav.container-fluid{
         background-color:  #1f1f1f!important;
         margin-bottom: 5px;
         padding-top: 10px;
         margin-top: 5px;
         height: 90vh;
+        color: #6200EE;
+    }
+      #channel_nav.container-fluid{
+        background-color:  #1f1f1f!important;
+        margin-bottom: 5px;
+        padding-top: 10px;
+        margin-top: 5px;
+        height: 84vh;
         color: #6200EE;
     }
     .form{

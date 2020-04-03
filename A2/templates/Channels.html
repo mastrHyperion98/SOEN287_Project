@@ -1,2 +1,42 @@
 {% extends "base_home.html" %}
-{% block title %}{{ super() }} Channels {% endblock %}
+{% block title %}{{ super() }} Channels{% endblock %}
+{% block content %}
+    {{ super() }}
+
+<div  class="container-fluid overflow-auto">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+        <div id="channel_nav" class="container-fluid overflow-auto" >
+            <div class="row d-flex justify-content-center">
+                <h3>Channels</h3>
+            </div>
+            <hr/>
+            <div id="nav_channels" class="container-fluid d-flex justify-content-center">
+               <div id="channel_select" class="list-group list-group-btn">
+                  <button type="button" class="list-group-item list-group-item-action active">
+                    Comp 365
+                  </button>
+                  <button type="button" class="list-group-item list-group-item-action">
+                    Comp 365
+                  </button>
+               </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-around">
+
+        <div class="col-sm6 ">
+            <button type="button" class="btn btn-light">Create Channel</button>
+        </div>
+           <div class="col-sm6">
+            <button type="button" class="btn btn-light">Delete Channel</button>
+        </div>
+    </div>
+    </div>
+    <div class="col-sm-9 ">
+        <div id="channel_settings" class="container-fluid overflow-auto">
+
+        </div>
+  </div>
+</div>
+</div>
+{%  endblock %}
