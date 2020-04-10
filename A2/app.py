@@ -35,9 +35,10 @@ def verify_login():
 
 @app.route('/dashboard')
 def dashboard():
-    data = {'SOEN287':'SOEN287', "COMP361":"CHRISTINA", "a":"b", "c":"d", "e":"f", "g":"h", "j":"k", "m":"n", "o":"P",
-            "COMP371":"COMP371","COMP490":"COMP490","Hockey":"CANADIEN", "ANIME":"JAPAN","HOLIDAYS":"OVERFLOW"}
-    return render_template("Dashboard.html", channels=data)
+    channels_str = '''[{"channel_name": "SOEN287", "channel_id": "SOEN287_HYUBN811ALO2"},
+     {"channel_name": "COMP371", "channel_id": "COMP371_HYUBN811ALO2"}]'''
+    channel = json.loads(channels_str)
+    return render_template("Dashboard.html", channels=channel)
 
 
 @app.route('/settings/account')
@@ -53,8 +54,11 @@ def channels():
     {"user_name": "Hyperion", "permalink": "HYUBN811ALO2", "last_login": "2020-04-15"},
     {"user_name": "Hyperion", "permalink": "HYUBN811ALO2", "last_login": "2020-04-15"}]'''
 
+    channels_str = '''[{"channel_name": "SOEN287", "channel_id": "SOEN287_HYUBN811ALO2"},
+    {"channel_name": "COMP371", "channel_id": "COMP371_HYUBN811ALO2"}]'''
+    channel = json.loads(channels_str)
     user = json.loads(json_str)
-    return render_template("Channels.html", users = user)
+    return render_template("Channels.html", users = user, channels= channel)
 
 
 @app.route('/download/<string:permalink>')

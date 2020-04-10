@@ -13,12 +13,15 @@
             <hr/>
             <div id="nav_channels" class="container-fluid d-flex justify-content-center">
                <div id="channel_select" class="list-group list-group-btn">
-                  <button type="button" class="list-group-item list-group-item-action active">
-                    Comp 365
-                  </button>
-                  <button type="button" class="list-group-item list-group-item-action">
-                    Comp 365
-                  </button>
+                 <ul style="list-style-type:none;">
+                   {% for channel in channels %}
+                       <li>
+                           <button id={{ channel['channel_id']}} type="button" class="list-group-item list-group-item-action">
+                           {{ channel['channel_name']}}
+                        </button>
+                       </li>
+                   {% endfor %}
+               </ul>
                </div>
             </div>
         </div>
