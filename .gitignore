@@ -1,0 +1,9 @@
+
+A2/venv/lib/python3.8/site-packages/__pycache__/
+
+A2/venv/lib/python3.8/site-packages/decorator-4.4.2.dist-info/
+
+A2/venv/*
+A2/__pycache__/*
+
+A2/__pycache__/
