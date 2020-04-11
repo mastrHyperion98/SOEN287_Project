@@ -16,3 +16,11 @@ class CreateAccount(FlaskForm):
     password = PasswordField('Password:', validators=[DataRequired(), Length(8, 16)])
     confirm = PasswordField('Confirm Password:', validators=[DataRequired(), EqualTo('password', message='Passwords must match.')])
     submit = SubmitField('Create Account')
+
+
+class Settings(FlaskForm):
+    email = EmailField('Email:', validators=[InputRequired(), Email()])
+    username = StringField('Username:', render_kw={'readonly': True})
+    password = PasswordField('Password:', validators=[DataRequired(), Length(8, 16)])
+    permalink = StringField('Permalink:', render_kw={'readonly': True})
+    submit = SubmitField('Apply Changes')

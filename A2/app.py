@@ -2,10 +2,11 @@ import os
 import json
 from flask import Flask, render_template, url_for, redirect, request, session, current_app, send_from_directory, \
     send_file
-from forms import LoginForm, CreateAccount
+from forms import LoginForm, CreateAccount, Settings
 
 app = Flask(__name__)
 app.secret_key = 'allo'
+
 
 @app.route('/')
 def index():
@@ -36,9 +37,15 @@ def dashboard():
     return render_template("Dashboard.html", channels=channel)
 
 
-@app.route('/settings/account')
+@app.route('/settings/account', methods=['POST', 'GET'])
 def account_settings():
-    return render_template("AccountSettings.html", username="Hyperion", email="Mastr.hyperion98@gmail.com", permalink="128UA90NV67M")
+    form = Settings()
+
+    if form.validate_on_submit():
+        return render_template("AccountSettings.html", form=form, username="Hyperion", email="Mastr.hyperion98@gmail.com",
+                               permalink="128UA90NV67M")
+    return render_template("AccountSettings.html", form=form, username="Hyperion", email="Mastr.hyperion98@gmail.com",
+                           permalink="128UA90NV67M")
 
 
 @app.route('/channels')
@@ -53,13 +60,13 @@ def channels():
     {"channel_name": "COMP371", "channel_id": "COMP371_HYUBN811ALO2"}]'''
     channel = json.loads(channels_str)
     user = json.loads(json_str)
-    return render_template("Channels.html", users = user, channels= channel)
+    return render_template("Channels.html", users=user, channels=channel)
 
 
 @app.route('/download/<string:permalink>')
 def download_user_data(permalink):
-	path = "Data/" +permalink + ".txt"
-	return send_file(path, as_attachment=True)
+    path = "Data/" + permalink + ".txt"
+    return send_file(path, as_attachment=True)
 
 
 if __name__ == '__main__':
