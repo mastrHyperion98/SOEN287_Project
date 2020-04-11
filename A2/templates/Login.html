@@ -8,16 +8,9 @@
        <h1>Welcome to Chatty! </h1>
    </div>
     <div class="row-12 align-items-center">
-    <form method="POST" action="{{ url_for('verify_login') }}">
-    <label for="username_field">Username
-    <input type="text" class="form-control" id="username_field" name="username">
-    </label>
-    <label for="Password1">Password
-    <input type="password" class="form-control" name="password">
-    </label>
+    {{ content_form(form, '/Login')}}
     <div class="col text-center">
-     <button type="submit" class="btn btn-primary" value="Submit" >Login</button>
-        <label><a href="/create/account"> Create Account</a></label>
+        <label><a href="/create-account"> Create Account</a></label>
     </div>
 </form>
 </div>

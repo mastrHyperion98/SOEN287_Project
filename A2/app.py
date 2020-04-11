@@ -2,36 +2,30 @@ import os
 import json
 from flask import Flask, render_template, url_for, redirect, request, session, current_app, send_from_directory, \
     send_file
+from forms import LoginForm
 
 app = Flask(__name__)
-
+app.secret_key = 'allo'
 
 @app.route('/')
 def index():
     return redirect(url_for("login"))
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    return render_template("Login.html")
+    form = LoginForm()
+    if form.validate_on_submit():
+        return redirect(url_for("dashboard"))
+    return render_template("Login.html", form=form)
 
 
-@app.route('/create/account')
+@app.route('/create-account', methods=['POST', 'GET'])
 def create_account():
+    form = LoginForm()
+    if form.validate_on_submit():
+        return redirect(url_for("login"))
     return render_template("CreateAccount.html")
-
-
-@app.route('/createAccount/verify', methods=['POST', 'GET'])
-def verify_createAccount():
-    return redirect(url_for("login"))
-
-
-@app.route('/login/verify', methods=['POST', 'GET'])
-def verify_login():
-    #here we can verify the login credential before redirecting to the dashboard
-    #we can also add the user to the session here.
-    return redirect(url_for("dashboard"))
-
 
 @app.route('/dashboard')
 def dashboard():
