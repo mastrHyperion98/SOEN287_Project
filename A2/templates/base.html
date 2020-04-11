@@ -15,7 +15,9 @@
 {# The following 2 macros are based on the code from http://www.codetodd.com/flask-bootstrap-and-bootstrap-4-0/ #}
 {% macro form_group(field) -%}
     <div class="form-group row required">
-        {{ field.label(class_="col col-form-label") }}
+        <div class="row-12">
+        {{ field.label(class_="row row-form-label ") }}
+        </div>
         {% if field.type in ['MultiCheckboxField', 'RadioField'] %}
             {% if field.errors %}
                 <div class="form-control is-invalid">
@@ -34,7 +36,7 @@
             {% if field.errors %}
                 {{ field(class_="form-control is-invalid") }}
             {% else %}
-                {{ field(class_="form-control col-sm-8") }}
+                {{ field(class_="form-control") }}
             {% endif %}
         {% endif %}
         {% if field.errors %}
