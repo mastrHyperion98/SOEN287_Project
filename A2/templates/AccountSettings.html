@@ -7,6 +7,11 @@
        <h1>Account Settings</h1>
        <hr/>
         {{ content_form(form, '/settings/account')}}
+       <script>
+           document.getElementsByName('email')[0].placeholder='{{ email }}'
+           document.getElementsByName('username')[0].placeholder='{{ username }}';
+           document.getElementsByName('permalink')[0].placeholder='{{ permalink }}';
+       </script>
    </div>
 </div>
 {% endblock %}
