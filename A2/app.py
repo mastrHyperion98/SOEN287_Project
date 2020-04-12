@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/db.sqlite3'
 app.secret_key = os.environ.get('SECRET_KEY') or 'DEV'
 db = SQLAlchemy(app)
 
-from utils import validate_account
+from utils import validate_account, verify_login
 
 
 @app.route('/')
@@ -23,7 +23,8 @@ def index():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        return redirect(url_for("dashboard"))
+        if verify_login(form, db):
+            return redirect(url_for("dashboard"))
     return render_template("Login.html", form=form)
 
 

@@ -15,15 +15,14 @@ class Users(db.Model):
     login=db.Column('login', db.DateTime, default=datetime.now)
     channels = db.relationship('channels', backref='admin')
 
-def to_json(self):
-        """Returns the instance of product as a JSON
-        Returns:
-            dict -- JSON representation of the product
-        """
-        return {
-            'id': self.id,
-            'email': self.email,
-            'username': self.username,
-            'permalink': self.permalink,
-            'login': str(self.login)
-        }
+    def to_json(self):
+            """Returns the instance of product as a JSON
+            Returns:
+                dict -- JSON representation of the product
+            """
+            return {
+                'email': self.email,
+                'username': self.username,
+                'permalink': self.permalink,
+                'login': str(self.login)
+            }
