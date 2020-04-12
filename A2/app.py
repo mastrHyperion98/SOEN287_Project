@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/db.sqlite3'
 app.secret_key = os.environ.get('SECRET_KEY') or 'DEV'
 db = SQLAlchemy(app)
-from utils import validate_account, verify_login,find_user,login_required, update_user, add_channel, my_channels
+from utils import validate_account, verify_login,find_user,login_required, update_user, add_channel, my_channels, member_of
 
 
 @app.route('/')
@@ -54,7 +54,7 @@ def create_account():
 def dashboard():
     channels_str = '''[{"channel_name": "SOEN287", "channel_id": "SOEN287_HYUBN811ALO2"},
      {"channel_name": "COMP371", "channel_id": "COMP371_HYUBN811ALO2"}]'''
-    channel = json.loads(channels_str)
+    channel = json.loads(member_of(db))
     return render_template("Dashboard.html", channels=channel)
 
 

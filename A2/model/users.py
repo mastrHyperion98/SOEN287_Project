@@ -14,6 +14,7 @@ class Users(db.Model):
     permalink=db.Column('permalink', db.String(16))
     login=db.Column('login', db.DateTime, default=datetime.now)
     channels = db.relationship('Channels', backref='admin')
+    channel_member = db.relationship('Members', backref='channel_member')
 
     def to_json(self):
             """Returns the instance of product as a JSON

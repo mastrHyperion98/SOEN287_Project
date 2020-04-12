@@ -6,6 +6,7 @@ import random
 from sqlalchemy.exc import IntegrityError
 from model.users import Users
 from model.channels import Channels
+from model.members import Members
 
 from flask import session, flash, redirect, url_for, request, json
 
@@ -126,6 +127,10 @@ def add_channel(form, db):
     db.session.add(channel)
     try:
         db.session.commit()
+        channel = Channels.query.filter_by(name=name, admin_id=admin_id).first()
+        member = Members(channel_id=channel.id, user_id=admin_id, is_admin=True)
+        db.session.add(member)
+        db.session.commit()
         return True
     except IntegrityError:
         #cancel all changes
@@ -149,6 +154,19 @@ def my_channels(db):
     list=[]
     for channel in channels:
         list.append(channel.to_json())
+
+    return json.dumps(list)
+
+def member_of(db):
+    #Query for our user
+    user = Users.query.filter_by(permalink=session['user']['permalink']).first()
+    #fetch the list of membership
+    member_of = user.channel_member
+
+    list=[]
+    for channel in member_of:
+        channel_member = Channels.query.filter_by(id=channel.channel_id).first()
+        list.append(channel_member.to_json())
 
     return json.dumps(list)
 
