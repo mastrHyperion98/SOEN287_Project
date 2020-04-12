@@ -62,6 +62,11 @@ def update_user(form, db):
     password = ""
     if form.email.data != "":
         email = form.email.data
+        # check if email already exists in the database
+        tmp_user = Users.query.filter_by(email=email).first()
+        if tmp_user is not None:
+            flash(u'This email is already in use!', 'error')
+            return False
     if form.password.data != "":
         password = bcrypt.hashpw(form.password.data.encode('utf8'), salt=bcrypt_salt).decode('utf8')
 
@@ -71,15 +76,12 @@ def update_user(form, db):
     if email:
         user.email = email
         is_email = True
-        print("UPDATING EMAIL")
     if password:
         user.password = password
         is_password = True
-        print("UPDATING PASSWORD")
 
     if is_email and is_password:
         flash(u'The password and Email have been updated!', 'info')
-        print("SUCCESS! Fields UPDATED")
     elif is_email:
         flash(u'The Email has been updated!', 'info')
     elif is_password:

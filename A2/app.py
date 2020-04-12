@@ -34,7 +34,7 @@ def login():
 @login_required
 def logout():
     session.clear()
-    flash("You have been logged out!")
+    flash(u"You have been logged out!", "info")
     gc.collect()
     return redirect(url_for('login'))
 

@@ -9,14 +9,24 @@
        <hr/>
    </div>
       <div class = "row justify-content-center">
-           {% with messages = get_flashed_messages() %}
-               {% if messages %}
-                   <ul class="flashes alert alert-danger"  style="list-style-type:none;">
-                       {% for message in messages %}
-                           <li>{{ message }}</li>
-                       {% endfor %}
+            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+           {% if errors %}
+                   <ul class="flashes alert alert-danger" style="list-style-type:none;">
+                       {%- for msg in errors %}
+                           <li>{{ msg }}</li>
+                       {% endfor -%}
                    </ul>
-               {% endif %}
+           {% endif %}
+           {% endwith %}
+
+        {% with errors = get_flashed_messages(category_filter=["info"]) %}
+           {% if errors %}
+                   <ul class="flashes alert alert-success" style="list-style-type:none;">
+                       {%- for msg in errors %}
+                           <li>{{ msg }}</li>
+                       {% endfor -%}
+                   </ul>
+           {% endif %}
            {% endwith %}
        </div>
     <div class="row-12 align-items-center">
