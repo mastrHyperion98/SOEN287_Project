@@ -9,9 +9,9 @@ class Users(db.Model):
     )
     id=db.Column('id', db.Integer, primary_key=True)
     email=db.Column('email', db.String(50))
-    password=db.Column('password', db.String(16))
-    username=db.Column('username', db.String(16))
-    permalink=db.Column('permalink', db.String(8))
+    password=db.Column('password', db.String(32))
+    username=db.Column('username', db.String(32))
+    permalink=db.Column('permalink', db.String(16))
     login=db.Column('login', db.DateTime, default=datetime.now)
     channels = db.relationship('channels', backref='admin')
 
