@@ -3,10 +3,13 @@ import json
 from flask import Flask, render_template, url_for, redirect, request, session, current_app, send_from_directory, \
     send_file
 from forms import LoginForm, CreateAccount, Settings
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.secret_key = 'allo'
-
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/db.sqlite3'
+app.secret_key = os.environ.get('SECRET_KEY') or 'DEV'
+db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
