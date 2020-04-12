@@ -3,10 +3,9 @@ from functools import wraps
 
 import bcrypt
 import random
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from sqlalchemy.exc import IntegrityError
 from model.users import Users
-from flask import session, flash, redirect, url_for
+from flask import session, flash, redirect, url_for, request
 
 bcrypt_salt = "$2a$10$ssTHsnejHc6RrlyVbiNQ/O".encode('utf8')
 
@@ -70,6 +69,7 @@ def login_required(f):
         if 'user' in session:
             return f(*args, **kwargs)
         else:
+            session['next']=request.url
             flash("You need to login first")
             return redirect(url_for('login'))
     return wrap

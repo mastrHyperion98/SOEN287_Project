@@ -24,8 +24,9 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         if verify_login(form, db):
-
-            return redirect(url_for("dashboard"))
+            next_page = session.get('next', url_for("dashboard"))
+            session['next']=url_for("dashboard")
+            return redirect(next_page)
     return render_template("Login.html", form=form)
 
 
