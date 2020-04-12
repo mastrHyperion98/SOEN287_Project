@@ -1,9 +1,12 @@
 import string
+from functools import wraps
+
 import bcrypt
 import random
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from sqlalchemy.exc import IntegrityError
 from model.users import Users
-from flask import session, flash
+from flask import session, flash, redirect, url_for
 
 bcrypt_salt = "$2a$10$ssTHsnejHc6RrlyVbiNQ/O".encode('utf8')
 
@@ -47,8 +50,26 @@ def verify_login(form, db):
         flash(u'Email is not registered to a user!', 'error')
         return False
     elif bcrypt.checkpw(password.encode('utf8'), user.password.encode('utf8')):
+        #login_the user
         session['user'] = user.to_json()
         return True
     else:
         flash(u'Password is incorrect!', 'error')
         return False
+
+def find_user(user_id, db):
+    user = Users.query.filter_by(id=user_id).first()
+    if user is None:
+        return None
+    else:
+        return user
+
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'user' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You need to login first")
+            return redirect(url_for('login'))
+    return wrap

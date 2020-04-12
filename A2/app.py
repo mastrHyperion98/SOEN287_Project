@@ -1,3 +1,4 @@
+import gc
 import os
 import json
 from flask import Flask, render_template, url_for, redirect, request, session, current_app, send_from_directory, \
@@ -10,8 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/db.sqlite3'
 app.secret_key = os.environ.get('SECRET_KEY') or 'DEV'
 db = SQLAlchemy(app)
-
-from utils import validate_account, verify_login
+from utils import validate_account, verify_login,find_user,login_required
 
 
 @app.route('/')
@@ -24,9 +24,18 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         if verify_login(form, db):
+
             return redirect(url_for("dashboard"))
     return render_template("Login.html", form=form)
 
+
+@app.route("/logout")
+@login_required
+def logout():
+    session.clear()
+    flash("You have been logged out!")
+    gc.collect()
+    return redirect(url_for('login'))
 
 @app.route('/create-account', methods=['POST', 'GET'])
 def create_account():
@@ -40,6 +49,7 @@ def create_account():
 
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     channels_str = '''[{"channel_name": "SOEN287", "channel_id": "SOEN287_HYUBN811ALO2"},
      {"channel_name": "COMP371", "channel_id": "COMP371_HYUBN811ALO2"}]'''
@@ -48,6 +58,7 @@ def dashboard():
 
 
 @app.route('/settings/account', methods=['POST', 'GET'])
+@login_required
 def account_settings():
     user = session['user']
     form = Settings()
@@ -61,6 +72,7 @@ def account_settings():
 
 
 @app.route('/channels')
+@login_required
 def channels():
     json_str = '''[{"user_name": "Hyperion", "permalink": "HYUBN811ALO2", "last_login": "2020-04-15"},
     {"user_name": "Hyperion", "permalink": "HYUBN811ALO2", "last_login": "2020-04-15"},
