@@ -2,7 +2,7 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from app import db
 from model import channels
-class users(db.Model):
+class Users(db.Model):
     __tablename__ = 'users'
     __table_args__ = (
         db.UniqueConstraint('id', 'email', 'username', 'permalink', name='user_uc'),
