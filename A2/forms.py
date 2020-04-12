@@ -24,3 +24,8 @@ class Settings(FlaskForm):
     password = PasswordField('Password:', validators=[Optional(), Length(8, 16)])
     permalink = StringField('Permalink:', render_kw={'readonly': True})
     submit = SubmitField('Apply Changes')
+
+
+class CreateChannelForm(FlaskForm):
+    name = StringField('Channel Name:', validators=[InputRequired(), Length(4,16)])
+    submit = SubmitField("Create Channel")

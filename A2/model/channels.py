@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from app import db
 from model import users
-class channels(db.Model):
+class Channels(db.Model):
     __tablename__ = 'channels'
 
     id= db.Column('id', db.Integer, primary_key=True)

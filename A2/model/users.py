@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from app import db
-from model import channels
+from model.channels import Channels
 class Users(db.Model):
     __tablename__ = 'users'
     __table_args__ = (
@@ -13,7 +13,7 @@ class Users(db.Model):
     username=db.Column('username', db.String(32))
     permalink=db.Column('permalink', db.String(16))
     login=db.Column('login', db.DateTime, default=datetime.now)
-    channels = db.relationship('channels', backref='admin')
+    channels = db.relationship('Channels', backref='admin')
 
     def to_json(self):
             """Returns the instance of product as a JSON

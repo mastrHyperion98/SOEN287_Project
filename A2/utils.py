@@ -5,6 +5,8 @@ import bcrypt
 import random
 from sqlalchemy.exc import IntegrityError
 from model.users import Users
+from model.channels import Channels
+
 from flask import session, flash, redirect, url_for, request
 
 bcrypt_salt = "$2a$10$ssTHsnejHc6RrlyVbiNQ/O".encode('utf8')
@@ -93,6 +95,42 @@ def update_user(form, db):
     db.session.commit()
     session['user']=user.to_json()
     return True
+
+
+def add_channel(form, db):
+    name = form.name.data
+    admin_id = session['user']['id']
+    permalink = ""
+
+    while True: #generate a permalink not in the database same algo as for user
+        for x in range(16):
+            if random.randint(0, 11) <= 5:
+                permalink = permalink + random.choice(string.ascii_letters)
+            else:
+                permalink = permalink + random.choice(string.digits)
+            tmp_channel = Channels.query.filter_by(permalink=permalink).first()
+            # if none then safe to add
+        if tmp_channel is None:
+            break
+    # check for duplicate name for given admin_id
+    user = Users.query.filter_by(id=admin_id).first()
+    channels = user.channels
+
+    for channel in channels:
+        if channel.name == name:
+            flash(u'You already have a channel with this name!', 'error')
+            return False
+
+    channel = Channels(admin_id=admin_id, name=name, permalink=permalink)
+    db.session.add(channel)
+    try:
+        db.session.commit()
+        return True
+    except IntegrityError:
+        #cancel all changes
+        flash(u'An unexpected error has occurred!', 'error')
+        db.session.rollback()
+        return False
 
 
 def find_user(user_id, db):

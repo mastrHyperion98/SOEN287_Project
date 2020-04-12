@@ -3,7 +3,7 @@ import os
 import json
 from flask import Flask, render_template, url_for, redirect, request, session, current_app, send_from_directory, \
     send_file, flash
-from forms import LoginForm, CreateAccount, Settings
+from forms import LoginForm, CreateAccount, Settings, CreateChannelForm
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/db.sqlite3'
 app.secret_key = os.environ.get('SECRET_KEY') or 'DEV'
 db = SQLAlchemy(app)
-from utils import validate_account, verify_login,find_user,login_required, update_user
+from utils import validate_account, verify_login,find_user,login_required, update_user, add_channel
 
 
 @app.route('/')
@@ -73,7 +73,7 @@ def account_settings():
                            permalink=user['permalink'])
 
 
-@app.route('/channels')
+@app.route('/channels', methods=['POST', 'GET'])
 @login_required
 def channels():
     json_str = '''[{"user_name": "Hyperion", "permalink": "HYUBN811ALO2", "last_login": "2020-04-15"},
@@ -84,9 +84,16 @@ def channels():
 
     channels_str = '''[{"channel_name": "SOEN287", "channel_id": "SOEN287_HYUBN811ALO2"},
     {"channel_name": "COMP371", "channel_id": "COMP371_HYUBN811ALO2"}]'''
+
+    create_channel_form = CreateChannelForm()
+    if create_channel_form.validate_on_submit():
+        if add_channel(create_channel_form, db):
+            channel = json.loads(channels_str)
+            user = json.loads(json_str)
+
     channel = json.loads(channels_str)
     user = json.loads(json_str)
-    return render_template("Channels.html", users=user, channels=channel)
+    return render_template("Channels.html", users=user, channels=channel, add_chanel_form = create_channel_form)
 
 
 @app.route('/download/<string:permalink>')

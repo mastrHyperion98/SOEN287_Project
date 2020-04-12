@@ -28,7 +28,7 @@
         <div class="row d-flex justify-content-around">
 
         <div class="col-sm6 ">
-            <button type="button" class="btn btn-light">Create Channel</button>
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#create_channel">Create Channel</button>
         </div>
            <div class="col-sm6">
             <button type="button" class="btn btn-light">Delete Channel</button>
@@ -76,5 +76,45 @@
             </div>
         </div>
 </div>
+</div>
+    <!-- Modal -->
+<div class="modal  fade" id="create_channel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Channel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body justify-content-center">
+             <div class = "row justify-content-center">
+           {% with errors = get_flashed_messages(category_filter=["error"]) %}
+           {% if errors %}
+                   <ul class="flashes alert alert-danger" style="list-style-type:none;">
+                       {%- for msg in errors %}
+                           <li>{{ msg }}</li>
+                       {% endfor -%}
+                   </ul>
+           {% endif %}
+           {% endwith %}
+
+        {% with errors = get_flashed_messages(category_filter=["info"]) %}
+           {% if errors %}
+                   <ul class="flashes alert alert-dark" style="list-style-type:none;">
+                       {%- for msg in errors %}
+                           <li>{{ msg }}</li>
+                       {% endfor -%}
+                   </ul>
+           {% endif %}
+           {% endwith %}
+       </div>
+      <div class="row justify-content-center">
+        {{ content_form(add_chanel_form, '/channels')}}
+      </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 {%  endblock %}
