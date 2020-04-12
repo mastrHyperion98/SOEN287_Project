@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from model.users import Users
 from model.channels import Channels
 
-from flask import session, flash, redirect, url_for, request
+from flask import session, flash, redirect, url_for, request, json
 
 bcrypt_salt = "$2a$10$ssTHsnejHc6RrlyVbiNQ/O".encode('utf8')
 
@@ -84,8 +84,10 @@ def update_user(form, db):
 
     if is_email and is_password:
         flash(u'The password and Email have been updated!', 'info')
+        session['user']['email'] = email
     elif is_email:
         flash(u'The Email has been updated!', 'info')
+        session['user']['email'] = email
     elif is_password:
         flash(u'The password has been updated!', 'info')
     else:
@@ -93,7 +95,6 @@ def update_user(form, db):
         return False
 
     db.session.commit()
-    session['user']=user.to_json()
     return True
 
 
@@ -139,6 +140,18 @@ def find_user(user_id, db):
         return None
     else:
         return user
+
+
+def my_channels(db):
+    user_id = session['user']['id']
+    user = Users.query.filter_by(id=user_id).first()
+    channels = user.channels
+    list=[]
+    for channel in channels:
+        list.append(channel.to_json())
+
+    return json.dumps(list)
+
 
 def login_required(f):
     @wraps(f)

@@ -16,8 +16,8 @@
                <ul style="list-style-type:none;">
                    {% for channel in channels %}
                        <li>
-                           <button id={{ channel['channel_id']}} type="button" class="list-group-item list-group-item-action">
-                           {{ channel['channel_name']}}
+                           <button id='{{ channel['permalink']}}' type="button" class="list-group-item list-group-item-action">
+                           {{ channel['name']}}
                         </button>
                        </li>
                    {% endfor %}

@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/db.sqlite3'
 app.secret_key = os.environ.get('SECRET_KEY') or 'DEV'
 db = SQLAlchemy(app)
-from utils import validate_account, verify_login,find_user,login_required, update_user, add_channel
+from utils import validate_account, verify_login,find_user,login_required, update_user, add_channel, my_channels
 
 
 @app.route('/')
@@ -82,16 +82,13 @@ def channels():
     {"user_name": "Hyperion", "permalink": "HYUBN811ALO2", "last_login": "2020-04-15"},
     {"user_name": "Hyperion", "permalink": "HYUBN811ALO2", "last_login": "2020-04-15"}]'''
 
-    channels_str = '''[{"channel_name": "SOEN287", "channel_id": "SOEN287_HYUBN811ALO2"},
-    {"channel_name": "COMP371", "channel_id": "COMP371_HYUBN811ALO2"}]'''
-
     create_channel_form = CreateChannelForm()
     if create_channel_form.validate_on_submit():
         if add_channel(create_channel_form, db):
-            channel = json.loads(channels_str)
+            channel = json.loads(my_channels(db))
             user = json.loads(json_str)
-
-    channel = json.loads(channels_str)
+            return render_template("Channels.html", users=user, channels=channel, add_chanel_form=create_channel_form)
+    channel = json.loads(my_channels(db))
     user = json.loads(json_str)
     return render_template("Channels.html", users=user, channels=channel, add_chanel_form = create_channel_form)
 
