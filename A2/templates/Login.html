@@ -21,7 +21,7 @@
 
         {% with errors = get_flashed_messages(category_filter=["info"]) %}
            {% if errors %}
-                   <ul class="flashes alert alert-success" style="list-style-type:none;">
+                   <ul class="flashes alert alert-dark" style="list-style-type:none;">
                        {%- for msg in errors %}
                            <li>{{ msg }}</li>
                        {% endfor -%}
