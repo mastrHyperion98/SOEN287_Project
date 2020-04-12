@@ -19,8 +19,8 @@ class CreateAccount(FlaskForm):
 
 
 class Settings(FlaskForm):
-    email = EmailField('Email:', validators=[InputRequired(), Email()])
+    email = EmailField('Email:')
     username = StringField('Username:', render_kw={'readonly': True})
-    password = PasswordField('Password:', validators=[DataRequired(), Length(8, 16)])
+    password = PasswordField('Password:')
     permalink = StringField('Permalink:', render_kw={'readonly': True})
     submit = SubmitField('Apply Changes')

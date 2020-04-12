@@ -21,6 +21,7 @@ class Users(db.Model):
                 dict -- JSON representation of the product
             """
             return {
+                'id': self.id,
                 'email': self.email,
                 'username': self.username,
                 'permalink': self.permalink,

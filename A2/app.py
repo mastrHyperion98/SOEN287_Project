@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/db.sqlite3'
 app.secret_key = os.environ.get('SECRET_KEY') or 'DEV'
 db = SQLAlchemy(app)
-from utils import validate_account, verify_login,find_user,login_required
+from utils import validate_account, verify_login,find_user,login_required, update_user
 
 
 @app.route('/')
@@ -65,9 +65,10 @@ def account_settings():
     form = Settings()
 
     if form.validate_on_submit():
-        return render_template("AccountSettings.html", form=form, username=user['username'],
-                               email=user['email'],
-                               permalink=user['permalink'])
+        if update_user(form, db):
+            return render_template("AccountSettings.html", form=form, username=user['username'],
+                                email=user['email'],
+                                permalink=user['permalink'])
     return render_template("AccountSettings.html", form=form, username=user['username'], email=user['email'],
                            permalink=user['permalink'])
 
@@ -89,6 +90,7 @@ def channels():
 
 
 @app.route('/download/<string:permalink>')
+@login_required
 def download_user_data(permalink):
     path = "Data/" + permalink + ".txt"
     return send_file(path, as_attachment=True)

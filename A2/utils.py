@@ -31,12 +31,10 @@ def validate_account(form, db):
     db.session.add(my_user)
     try:
         db.session.commit()
-        print("SUCCSS! User added to Database")
         return True
     except IntegrityError:
         #cancel all changes
         db.session.rollback()
-        print("Integrity ERROR!")
         return False
 
 # verify login information and add user to session
@@ -55,6 +53,45 @@ def verify_login(form, db):
     else:
         flash(u'Password is incorrect!', 'error')
         return False
+
+
+def update_user(form, db):
+    is_email = False
+    is_password = False
+    email = ""
+    password = ""
+    if form.email.data != "":
+        email = form.email.data
+    if form.password.data != "":
+        password = bcrypt.hashpw(form.password.data.encode('utf8'), salt=bcrypt_salt).decode('utf8')
+
+    #find user in database
+    user_id = session['user']["id"]
+    user = db.session.query(Users).get(user_id)
+    if email:
+        user.email = email
+        is_email = True
+        print("UPDATING EMAIL")
+    if password:
+        user.password = password
+        is_password = True
+        print("UPDATING PASSWORD")
+
+    if is_email and is_password:
+        flash(u'The password and Email have been updated!', 'info')
+        print("SUCCESS! Fields UPDATED")
+    elif is_email:
+        flash(u'The Email has been updated!', 'info')
+    elif is_password:
+        flash(u'The password has been updated!', 'info')
+    else:
+        flash(u'An Error has occurred and the fields cannot be updated', 'error')
+        return False
+
+    db.session.commit()
+    session['user']=user.to_json()
+    return True
+
 
 def find_user(user_id, db):
     user = Users.query.filter_by(id=user_id).first()

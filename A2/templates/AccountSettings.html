@@ -6,6 +6,28 @@
    <div class="page-header">
        <h1>Account Settings</h1>
        <hr/>
+       <div class = 'row justify-content-center'>
+           {% with errors = get_flashed_messages(category_filter=["error"]) %}
+           {% if errors %}
+                   <ul class="flashes alert alert-danger" style="list-style-type:none;">
+                       {%- for msg in errors %}
+                           <li>{{ msg }}</li>
+                       {% endfor -%}
+                   </ul>
+           {% endif %}
+           {% endwith %}
+
+        {% with errors = get_flashed_messages(category_filter=["info"]) %}
+           {% if errors %}
+                   <ul class="flashes alert alert-success" style="list-style-type:none;">
+                       {%- for msg in errors %}
+                           <li>{{ msg }}</li>
+                       {% endfor -%}
+                   </ul>
+           {% endif %}
+           {% endwith %}
+
+       </div>
         {{ content_form(form, '/settings/account')}}
        <script>
            document.getElementsByName('email')[0].placeholder='{{ email }}'
