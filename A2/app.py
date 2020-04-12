@@ -49,14 +49,15 @@ def dashboard():
 
 @app.route('/settings/account', methods=['POST', 'GET'])
 def account_settings():
+    user = session['user']
     form = Settings()
 
     if form.validate_on_submit():
-        return render_template("AccountSettings.html", form=form, username="Hyperion",
-                               email="Mastr.hyperion98@gmail.com",
-                               permalink="128UA90NV67M")
-    return render_template("AccountSettings.html", form=form, username="Hyperion", email="Mastr.hyperion98@gmail.com",
-                           permalink="128UA90NV67M")
+        return render_template("AccountSettings.html", form=form, username=user['username'],
+                               email=user['email'],
+                               permalink=user['permalink'])
+    return render_template("AccountSettings.html", form=form, username=user['username'], email=user['email'],
+                           permalink=user['permalink'])
 
 
 @app.route('/channels')
