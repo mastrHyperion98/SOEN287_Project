@@ -18,7 +18,7 @@ class Members(db.Model):
         """
         return {
             'id': self.id,
-            'channel_id': self.channel_id_id,
+            'channel_id': self.channel_id,
             'user_id': self.user_id,
             'is_admin': self.is_admin
         }

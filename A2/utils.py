@@ -155,6 +155,7 @@ def my_channels(db):
     for channel in channels:
         list.append(channel.to_json())
 
+    session['channel_list']=channels[0].permalink
     return json.dumps(list)
 
 def member_of(db):
@@ -168,6 +169,24 @@ def member_of(db):
         channel_member = Channels.query.filter_by(id=channel.channel_id).first()
         list.append(channel_member.to_json())
 
+    return json.dumps(list)
+
+
+def get_members(db):
+    #fetch our channel from the databas
+    permalink = session['channel_list']
+    channel = Channels.query.filter_by(permalink=permalink).first()
+    # next get the members of the channel
+    list_of_members = channel.members
+
+    list=[]
+    for members in list_of_members:
+        user = Users.query.filter_by(id=members.id).first()
+        entry = user.to_json()
+        entry['is_admin'] = members.is_admin
+        print(entry)
+        list.append(entry)
+    # return the list of members
     return json.dumps(list)
 
 

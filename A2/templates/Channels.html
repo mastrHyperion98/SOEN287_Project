@@ -50,19 +50,32 @@
                                 <th scope="col">Username</th>
                                 <th scope="col">Account Permalink</th>
                                 <th scope="col">Last Login</th>
+                                <th scope="col">Is Admin</th>
                                 <th scope="col">Options</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for user in users %}
-                            <tr>
-                                <td>{{ user['user_name'] }}</td>
-                                <td>{{ user['permalink'] }}</td>
-                                <td>{{ user['last_login'] }}</td>
-                                <td><a href="/remove_user/{{ user['permalink'] }}">Remove</a></td>
-                            </tr>
+                                {% if user['is_admin'] %}
+                                    <tr>
+                                        <td>{{ user['username'] }}</td>
+                                        <td>{{ user['permalink'] }}</td>
+                                        <td>{{ user['login'] }}</td>
+                                        <td>{{ user['is_admin'] }}</td>
+                                        <td> </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td>{{ user['username'] }}</td>
+                                        <td>{{ user['permalink'] }}</td>
+                                        <td>{{ user['login'] }}</td>
+                                        <td>{{ user['is_admin'] }}</td>
+                                        <td><a href="/remove_user/{{ user['permalink'] }}">Remove</a></td>
+                                    </tr>
+                                {% endif %}
                             {% endfor %}
                                 <tr>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
