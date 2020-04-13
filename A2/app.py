@@ -39,6 +39,16 @@ def logout():
     gc.collect()
     return redirect(url_for('login'))
 
+
+@app.route('/Create/Channel',methods=['POST', 'GET'])
+def create_channel():
+    create_channel_form = CreateChannelForm()
+    if create_channel_form.validate_on_submit():
+        add_channel(create_channel_form, db)
+
+    return render_template("CreateChannel.html", add_chanel_form=create_channel_form)
+
+
 @app.route('/create-account', methods=['POST', 'GET'])
 def create_account():
     form = CreateAccount()
@@ -77,15 +87,9 @@ def account_settings():
 @app.route('/channels', methods=['POST', 'GET'])
 @login_required
 def channels():
-    create_channel_form = CreateChannelForm()
-    if create_channel_form.validate_on_submit():
-        if add_channel(create_channel_form, db):
-            channel = json.loads(my_channels(db))
-            user = json.loads(get_members(db))
-            return render_template("Channels.html", users=user, channels=channel, add_chanel_form=create_channel_form)
     channel = json.loads(my_channels(db))
     user = json.loads(get_members(db))
-    return render_template("Channels.html", users=user, channels=channel, add_chanel_form = create_channel_form)
+    return render_template("Channels.html", users=user, channels=channel)
 
 
 @app.route('/download/<string:permalink>')

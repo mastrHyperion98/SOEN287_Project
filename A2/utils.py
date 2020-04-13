@@ -131,6 +131,7 @@ def add_channel(form, db):
         member = Members(channel_id=channel.id, user_id=admin_id, is_admin=True)
         db.session.add(member)
         db.session.commit()
+        flash(u''+name+" has been created!", 'info')
         return True
     except IntegrityError:
         #cancel all changes
@@ -184,7 +185,6 @@ def get_members(db):
         user = Users.query.filter_by(id=members.id).first()
         entry = user.to_json()
         entry['is_admin'] = members.is_admin
-        print(entry)
         list.append(entry)
     # return the list of members
     return json.dumps(list)
