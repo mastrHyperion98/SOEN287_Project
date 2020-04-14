@@ -9,7 +9,7 @@ class Members(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     channel_id = db.Column('channel_id', db.Integer, db.ForeignKey('channels.id'))
     user_id = db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
-    is_admin = db.Column('is_admin', db.Boolean)
+    is_admin = db.Column('is_admin', db.Boolean, default=False)
 
     def to_json(self):
         """Returns the instance of product as a JSON

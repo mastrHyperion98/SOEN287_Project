@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ super() }} Login or Sign Up{% endblock %}
+
+{% block content %}
+<div class="container form d-flex justify-content-center center border-3 ">
+<div class="row-12 align-items-center">
+   <div class="page-header">
+       <h1>Add Members!</h1>
+       <hr/>
+   </div>
+      <div class = "row justify-content-center">
+            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+           {% if errors %}
+                   <ul class="flashes alert alert-danger" style="list-style-type:none;">
+                       {%- for msg in errors %}
+                           <li>{{ msg }}</li>
+                       {% endfor -%}
+                   </ul>
+           {% endif %}
+           {% endwith %}
+
+        {% with errors = get_flashed_messages(category_filter=["info"]) %}
+           {% if errors %}
+                   <ul class="flashes alert alert-dark" style="list-style-type:none;">
+                       {%- for msg in errors %}
+                           <li>{{ msg }}</li>
+                       {% endfor -%}
+                   </ul>
+           {% endif %}
+           {% endwith %}
+       </div>
+       <div class="row justify-content-center">
+           {{ content_form(form, '/add/member')}}
+      </div>
+    <div class="col-sm6 text-center" style="padding-top: 10px;">
+        <button type="button" class="btn btn-secondary" onclick="window.location.href = '/channels';">Cancel</button>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

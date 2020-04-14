@@ -4,7 +4,7 @@ from model.members import Members
 class Channels(db.Model):
     __tablename__ = 'channels'
 
-    id= db.Column('id', db.Integer, primary_key=True)
+    id = db.Column('id', db.Integer, primary_key=True)
     admin_id = db.Column('admin_id', db.Integer, db.ForeignKey('users.id'))
     name = db.Column('name', db.String(16))
     permalink = db.Column('permalink', db.String(16), unique=True)

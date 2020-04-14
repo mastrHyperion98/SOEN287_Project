@@ -31,6 +31,11 @@ class CreateChannelForm(FlaskForm):
     submit = SubmitField("Create Channel")
 
 
+class AddMemberForm(FlaskForm):
+    permalink = StringField('Permalink:', validators=[InputRequired(), Length(16,16)])
+    submit = SubmitField("Add User")
+
+
 class RecoverPasswordForm(FlaskForm):
     email = StringField('Email:', validators=[Email(), InputRequired()])
     submit = SubmitField("Submit")

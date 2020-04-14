@@ -47,6 +47,7 @@ def verify_login(form, db):
     password = form.password.data
     # check database to see if we find user with given email
     user = Users.query.filter_by(email=email).first()
+    session['channel_list'] = ""
     if user is None:
         flash(u'Email is not registered to a user!', 'error')
         return False
@@ -136,7 +137,7 @@ def add_channel(form, db):
         return True
     except IntegrityError:
         # cancel all changes
-        flash(u'An unexpected error has occurred!', 'error')
+        flash(u'Inputs are empty!', 'error')
         db.session.rollback()
         return False
 
@@ -157,9 +158,9 @@ def my_channels(db):
     for channel in channels:
         list.append(channel.to_json())
     # check if current channel list is empty
-    if session['channel_list'] == "" and len(channels) >0:
+    if session['channel_list'] == "" and len(channels) > 0:
         session['channel_list'] = channels[0].permalink
-    #else no channels exists
+    # else no channels exists
     return json.dumps(list)
 
 
@@ -189,9 +190,10 @@ def get_members(db):
     list = []
     for members in list_of_members:
         user = Users.query.filter_by(id=members.id).first()
-        entry = user.to_json()
-        entry['is_admin'] = members.is_admin
-        list.append(entry)
+        if user is not None:
+            entry = user.to_json()
+            entry['is_admin'] = members.is_admin
+            list.append(entry)
     # return the list of members
     return json.dumps(list)
 
@@ -267,6 +269,29 @@ def remove_member(db):
     return False
 
 
+def add_member(form, db):
+    user = Users.query.filter_by(permalink=form.permalink.data).first()
+    channel = Channels.query.filter_by(permalink=session['channel_list']).first()
+    channel_id = channel.id
+
+    if channel is None:
+        flash(u'You currently do not own any channels', 'error')
+        return False
+
+    member = Members(channel_id=channel_id, user_id=user.id)
+
+    db.session.add(member)
+    try:
+        db.session.commit()
+        flash(u"" + user.username + ' Has been added to ' + channel.name, 'info')
+        return True
+    except IntegrityError:
+        # cancel all changes
+        flash(u'This user does not exist!', 'error')
+        db.session.rollback()
+        return False
+
+
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -278,4 +303,3 @@ def login_required(f):
             return redirect(url_for('login'))
 
     return wrap
-

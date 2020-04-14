@@ -50,7 +50,7 @@ $(function() {
                             .append("<td class=\"text-center\"> </td>")
                             .append("<td class=\"text-center\"> </td>")
                             .append("<td class=\"text-center\"> </td>")
-                            .append('<td class="text-center"><a href="/add/user">Add User</a></td>');
+                            .append('<td class="text-center"><a href="/add/member">Add User</a></td>');
                         // add table to dom
                         $table.appendTo('#member_table_holder');
                     }
