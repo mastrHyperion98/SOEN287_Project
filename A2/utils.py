@@ -226,6 +226,21 @@ def recover_password(form, mail, db):
     return True
 
 
+def deleteActiveChannel(db):
+    channel = db.session.query(Channels).filter_by(permalink=session['channel_list']).first()
+    if channel is None:
+        return False
+    # we also need to remove all members therefore
+    members = channel.members
+
+    for member in members:
+        db.session.delete(member)
+    
+    db.session.delete(channel)
+    db.session.commit()
+    return True
+
+
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
