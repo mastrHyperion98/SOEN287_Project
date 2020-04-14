@@ -23,30 +23,34 @@ $(function() {
                     async: true,
                     //json object to sent to the authentication url
                     success: function (data){
-                        console.log(data);
                         var $table = $('<table>');
                         // set attribute
                         $table.attr("class", "table table-striped table-dark")
                         // thead
                         .append('<thead>').children('thead')
-                        .append('<tr />').children('tr').append('<th scope="col">Username</th><th scope="col">Account Permalink</th>' +
-                            '<th scope="col">Last Login</th><th scope="col">isAdmin</th><th scope="col">Options</th>');
+                        .append('<tr />').children('tr').append('<th class="text-center">Username</th><th class="text-center">Account Permalink</th>' +
+                            '<th class="text-center">Last Login</th><th class="text-center">isAdmin</th><th class="text-center">Options</th>');
                         //tbody
                         var $tbody = $table.append('<tbody />').children('tbody');
                         // add row
                         $.each(data, function(obj, item) {
                             var permalink = item['permalink'];
-                            console.log(permalink)
-                            var options = !item['is_admin'] ? "</td>" :'<button class="btn btn-secondary"' +
+                            var options = item['is_admin'] ? "</td>" :'<button class="btn btn-secondary"' +
                                 ' onclick="removeUser('+"'"+permalink+"'"+')">Remove User</button></td>';
-                            console.log(options)
                             $tbody.append('<tr />').children('tr:last')
-                            .append("<td>" + item['username'] + "</td>")
-                            .append("<td>" + permalink + "</td>")
-                            .append("<td>" + item['login'] + "</td>")
-                            .append("<td>" + item['is_admin'] + "</td>")
-                            .append("<td>" + options);
+                            .append("<td class=\"text-center\">" + item['username'] + "</td>")
+                            .append("<td class=\"text-center\">" + permalink + "</td>")
+                            .append("<td class=\"text-center\">" + item['login'] + "</td>")
+                            .append("<td class=\"text-center\">" + item['is_admin'] + "</td>")
+                            .append("<td class=\"text-center\">" + options);
                         });
+
+                         $tbody.append('<tr />').children('tr:last')
+                            .append("<td class=\"text-center\"> </td>")
+                            .append("<td class=\"text-center\"> </td>")
+                            .append("<td class=\"text-center\"> </td>")
+                            .append("<td class=\"text-center\"> </td>")
+                            .append('<td class="text-center"><a href="/add/user">Add User</a></td>');
                         // add table to dom
                         $table.appendTo('#member_table_holder');
                     }
@@ -54,14 +58,10 @@ $(function() {
             }
         }
     })
-
-
 });
 
 
-function removeUser(user){
-    console.log(user)
-}
+
 /*
   <table class="table table-striped table-dark" id="member_table" >
                             <thead>

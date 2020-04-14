@@ -253,6 +253,20 @@ def deleteActiveChannel(db):
     return True
 
 
+def remove_member(db):
+    user_permalink = request.json['permalink']
+    channel = db.session.query(Channels).filter_by(permalink=session['channel_list']).first()
+    members = channel.members
+
+    for member in members:
+        if member.permalink == user_permalink:
+            db.session.delete(member)
+            db.session.commit()
+            return True
+
+    return False
+
+
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):

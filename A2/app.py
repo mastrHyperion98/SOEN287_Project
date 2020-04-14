@@ -26,7 +26,7 @@ db = SQLAlchemy(app)
 mail = Mail(app)
 # have to import after as some imports depend on db being defined
 from utils import validate_account, verify_login, find_user, login_required, update_user, add_channel, my_channels, \
-    member_of, get_members, recover_password, deleteActiveChannel
+    member_of, get_members, recover_password, deleteActiveChannel, remove_member
 
 
 @app.route('/')
@@ -145,6 +145,16 @@ def members_active_channel():
     members = get_members(db)
 
     return members, 200
+
+
+@app.route('/remove/member', methods=['POST'])
+@login_required
+def remove_member():
+    if remove_member(db):
+        return "", 200
+    else:
+        return "", 500
+
 
 @app.route('/download/<string:permalink>')
 @login_required

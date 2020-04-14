@@ -37,3 +37,17 @@ function deleteChannel(){
 
     // will need to automatically change active channel to another one
 }
+
+function removeUser(user){
+      var data = {"permalink":user}
+    $.ajax({
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        url: '/remove/member',
+        dataType: 'json',
+        contentType: 'application/json',
+        async: true,
+        //json object to sent to the authentication url
+        data: JSON.stringify(data)
+    })
+}
