@@ -18,9 +18,17 @@
                   <ul style="list-style-type:none;">
                    {% for channel in channels %}
                        <li>
-                           <button id='{{ channel['permalink']}}' type="button" onclick="chatContent()" class="list-group-item list-group-item-action">
+                       {% if channel == channels[0]%}
+                           <button id='{{ channel['permalink']}}' type="button" onclick="chatContent('{{ channel['permalink']}}')"
+                                   class="list-group-item list-group-item-action active">
                            {{ channel['name']}}
-                        </button>
+                            </button>
+                       {% else %}
+                           <button id='{{ channel['permalink']}}' type="button" onclick="chatContent('{{ channel['permalink'] }}')"
+                                   class="list-group-item list-group-item-action">
+                               {{ channel['name']}}
+                           </button>
+                       {% endif %}
                        </li>
                    {% endfor %}
                </ul>
@@ -31,41 +39,6 @@
     <div class="col-sm-9 ">
         <div id="chat" class="container-fluid overflow-auto">
               <div class="message">
-                  <span class="name">Hyperion</span>
-                  <p class="message_content">Hello. How are you today is everything fine?</p>
-                  <span class="time">2020-02-21 11:00</span>
-              </div>
-             <div class="message">
-                  <span class="name">Hyperion</span>
-                  <p class="message_content">Hello. How are you today is everything fine?</p>
-                  <span class="time">2020-02-21 11:00</span>
-              </div>
-             <div class="message">
-                  <span class="name">Hyperion</span>
-                  <p class="message_content">Hello. How are you today is everything fine?</p>
-                  <span class="time">2020-02-21 11:00</span>
-              </div>
-             <div class="message">
-                  <span class="name">Hyperion</span>
-                  <p class="message_content">Hello. How are you today is everything fine?</p>
-                  <span class="time">2020-02-21 11:00</span>
-              </div>
-             <div class="message">
-                  <span class="name">Hyperion</span>
-                  <p class="message_content">Hello. How are you today is everything fine?</p>
-                  <span class="time">2020-02-21 11:00</span>
-              </div>
-             <div class="message">
-                  <span class="name">Hyperion</span>
-                  <p class="message_content">Hello. How are you today is everything fine?</p>
-                  <span class="time">2020-02-21 11:00</span>
-              </div>
-             <div class="message">
-                  <span class="name">Hyperion</span>
-                  <p class="message_content">Hello. How are you today is everything fine?</p>
-                  <span class="time">2020-02-21 11:00</span>
-              </div>
-             <div class="message">
                   <span class="name">Hyperion</span>
                   <p class="message_content">Hello. How are you today is everything fine?</p>
                   <span class="time">2020-02-21 11:00</span>

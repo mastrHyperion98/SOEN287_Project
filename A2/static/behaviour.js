@@ -1,9 +1,5 @@
 
-function chatContent() {
-    $(document).ready(function() {
-            $('button').click(function() {
+function chatContent(id) {
                 $('button.list-group-item.active').removeClass("active");
-                $(this).addClass("active");
-            });
-    });
+                $('#'+id).addClass("active");
 }
