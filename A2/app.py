@@ -3,16 +3,30 @@ import os
 import json
 from flask import Flask, render_template, url_for, redirect, request, session, current_app, send_from_directory, \
     send_file, flash
-from forms import LoginForm, CreateAccount, Settings, CreateChannelForm
+from flask_mail import Mail
+from forms import LoginForm, CreateAccount, Settings, CreateChannelForm, RecoverPasswordForm
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/db.sqlite3'
+app.config.update(
+    DEBUG=True,
+    # EMAIL SETTINGS
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USE_SSL=True,
+    MAIL_USERNAME='SOEN287.CHATTY@gmail.com',
+    MAIL_PASSWORD='Qwerty@321',
+    MAIL_DEFAULT_SENDER='SOEN287.CHATTY@gmail.com'
+)
 app.secret_key = os.environ.get('SECRET_KEY') or 'DEV'
 db = SQLAlchemy(app)
-from utils import validate_account, verify_login,find_user,login_required, update_user, add_channel, my_channels, \
-    member_of,get_members
+
+mail = Mail(app)
+# have to import after as some imports depend on db being defined
+from utils import validate_account, verify_login, find_user, login_required, update_user, add_channel, my_channels, \
+    member_of, get_members, recover_password
 
 
 @app.route('/')
@@ -26,9 +40,18 @@ def login():
     if form.validate_on_submit():
         if verify_login(form, db):
             next_page = session.get('next', url_for("dashboard"))
-            session['next']=url_for("dashboard")
+            session['next'] = url_for("dashboard")
             return redirect(next_page)
     return render_template("Login.html", form=form)
+
+
+@app.route('/recover', methods=['POST', 'GET'])
+def recover():
+    form = RecoverPasswordForm()
+    if form.validate_on_submit():
+       if recover_password(form, mail, db):
+           return render_template("Forgot_Password.html", form=form)
+    return render_template("Forgot_Password.html", form=form)
 
 
 @app.route("/logout")
@@ -40,7 +63,8 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/Create/Channel',methods=['POST', 'GET'])
+@app.route('/Create/Channel', methods=['POST', 'GET'])
+@login_required
 def create_channel():
     create_channel_form = CreateChannelForm()
     if create_channel_form.validate_on_submit():
@@ -63,8 +87,6 @@ def create_account():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    channels_str = '''[{"channel_name": "SOEN287", "channel_id": "SOEN287_HYUBN811ALO2"},
-     {"channel_name": "COMP371", "channel_id": "COMP371_HYUBN811ALO2"}]'''
     channel = json.loads(member_of(db))
     return render_template("Dashboard.html", channels=channel)
 
@@ -78,13 +100,13 @@ def account_settings():
     if form.validate_on_submit():
         if update_user(form, db):
             return render_template("AccountSettings.html", form=form, username=user['username'],
-                                email=user['email'],
-                                permalink=user['permalink'])
+                                   email=user['email'],
+                                   permalink=user['permalink'])
     return render_template("AccountSettings.html", form=form, username=user['username'], email=user['email'],
                            permalink=user['permalink'])
 
 
-@app.route('/channels', methods=['POST', 'GET'])
+@app.route('/channels', methods=['GET'])
 @login_required
 def channels():
     channel = json.loads(my_channels(db))

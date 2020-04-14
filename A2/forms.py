@@ -29,3 +29,8 @@ class Settings(FlaskForm):
 class CreateChannelForm(FlaskForm):
     name = StringField('Channel Name:', validators=[InputRequired(), Length(4,16)])
     submit = SubmitField("Create Channel")
+
+
+class RecoverPasswordForm(FlaskForm):
+    email = StringField('Email:', validators=[Email(), InputRequired()])
+    submit = SubmitField("Submit")
