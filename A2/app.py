@@ -113,6 +113,14 @@ def channels():
     user = json.loads(get_members(db))
     return render_template("Channels.html", users=user, channels=channel)
 
+@app.route('/changeChannel', methods=['POST'])
+@login_required
+def change_channel():
+    permalink = request.json['permalink']
+    session['channel_list'] = permalink
+    print(session['channel_list'])
+
+    return str(''), 200
 
 @app.route('/download/<string:permalink>')
 @login_required

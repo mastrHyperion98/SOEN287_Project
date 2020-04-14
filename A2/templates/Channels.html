@@ -14,11 +14,19 @@
             <div id="nav_channels" class="container-fluid d-flex justify-content-center">
                <div id="channel_select" class="list-group list-group-btn">
                <ul style="list-style-type:none;">
-                   {% for channel in channels %}
+                {% for channel in channels %}
                        <li>
-                           <button id='{{ channel['permalink']}}' type="button" class="list-group-item list-group-item-action">
+                       {% if channel == channels[0]%}
+                           <button id='{{ channel['permalink']}}' type="button" onclick="chatContent('{{ channel['permalink']}}')"
+                                   class="list-group-item list-group-item-action active">
                            {{ channel['name']}}
-                        </button>
+                            </button>
+                       {% else %}
+                           <button id='{{ channel['permalink']}}' type="button" onclick="chatContent('{{ channel['permalink'] }}')"
+                                   class="list-group-item list-group-item-action">
+                               {{ channel['name']}}
+                           </button>
+                       {% endif %}
                        </li>
                    {% endfor %}
                </ul>
