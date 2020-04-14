@@ -1,4 +1,6 @@
 {% extends "base_home.html" %}
+{% block head %}{{ super() }}
+{% endblock %}
 {% block title %}{{ super() }} Dashboard {% endblock %}
 {% block content %}
     {{ super() }}
@@ -16,7 +18,7 @@
                   <ul style="list-style-type:none;">
                    {% for channel in channels %}
                        <li>
-                           <button id='{{ channel['permalink']}}' type="button" class="list-group-item list-group-item-action">
+                           <button id='{{ channel['permalink']}}' type="button" onclick="chatContent()" class="list-group-item list-group-item-action">
                            {{ channel['name']}}
                         </button>
                        </li>
@@ -79,4 +81,13 @@
   </div>
 </div>
 </div>
+      <div class="container">
+        <h1 class="text-success text-center">GeeksforGeeks</h1>
+        <h3>Active Item in a List Group</h3>
+        <ul class="list-group">
+            <li class="list-group-item active">Active item</li>
+            <li class="list-group-item">Click me to active item</li>
+            <li class="list-group-item">Click me too active item item</li>
+        </ul>
+    </div>
 {%  endblock %}

@@ -212,7 +212,7 @@ def recover_password(form, mail, db):
     # Update the password in the database
     user.password = password
     db.session.commit()
-    
+
     print(tmp_password + "HAS BEEN RESET")
 
     msg = Message('Chatty Password Reset!', recipients=[email])
