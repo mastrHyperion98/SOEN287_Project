@@ -110,8 +110,7 @@ def account_settings():
 @login_required
 def channels():
     channel = json.loads(my_channels(db))
-    user = json.loads(get_members(db))
-    return render_template("Channels.html", users=user, channels=channel)
+    return render_template("Channels.html", channels=channel)
 
 @app.route('/changeChannel', methods=['POST'])
 @login_required
@@ -125,12 +124,27 @@ def change_channel():
 @app.route('/delete/channel', methods=['POST'])
 @login_required
 def delete_channel():
-    permalink = {'permalink': session['channel_list']}
+    permalink = session['channel_list']
+
     if deleteActiveChannel(db):
-        return json.dumps(permalink), 200
+        list = {'permalink': permalink, 'next_active': session['channel_list']}
+        return json.dumps(list), 200
     else:
         return '', 500
 
+
+@app.route('/channels/active', methods=['GET'])
+@login_required
+def active_channel():
+    return json.dumps({'permalink': session['channel_list']})
+
+
+@app.route('/channels/members', methods=['GET'])
+@login_required
+def members_active_channel():
+    members = get_members(db)
+
+    return members, 200
 
 @app.route('/download/<string:permalink>')
 @login_required

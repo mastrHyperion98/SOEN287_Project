@@ -1,4 +1,8 @@
 {% extends "base_home.html" %}
+{% block head %}{{ super() }}
+
+    <script src="../static/channel.js"></script>
+{% endblock %}
 {% block title %}{{ super() }} Channels{% endblock %}
 {% block content %}
     {{ super() }}
@@ -16,17 +20,10 @@
                <ul style="list-style-type:none;">
                 {% for channel in channels %}
                        <li>
-                       {% if channel == channels[0]%}
                            <button id='{{ channel['permalink']}}' type="button" onclick="chatContent('{{ channel['permalink']}}')"
-                                   class="list-group-item list-group-item-action active">
+                                   class="list-group-item list-group-item-action ">
                            {{ channel['name']}}
                             </button>
-                       {% else %}
-                           <button id='{{ channel['permalink']}}' type="button" onclick="chatContent('{{ channel['permalink'] }}')"
-                                   class="list-group-item list-group-item-action">
-                               {{ channel['name']}}
-                           </button>
-                       {% endif %}
                        </li>
                    {% endfor %}
                </ul>
@@ -51,50 +48,7 @@
              <hr/>
                 <div class="tab-content" id="nav-tabContent">
                   <div class="tab-pane fade show active" id="nav-members" role="tabpanel" aria-labelledby="nav-home-tab">
-                      {% if channels %}
-                          <div class="table-responsive">
-                        <table class="table table-striped table-dark" >
-                            <thead>
-                            <tr>
-                                <th scope="col">Username</th>
-                                <th scope="col">Account Permalink</th>
-                                <th scope="col">Last Login</th>
-                                <th scope="col">Is Admin</th>
-                                <th scope="col">Options</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for user in users %}
-                                {% if user['is_admin'] %}
-                                    <tr>
-                                        <td>{{ user['username'] }}</td>
-                                        <td>{{ user['permalink'] }}</td>
-                                        <td>{{ user['login'] }}</td>
-                                        <td>{{ user['is_admin'] }}</td>
-                                        <td> </td>
-                                    </tr>
-                                {% else %}
-                                    <tr>
-                                        <td>{{ user['username'] }}</td>
-                                        <td>{{ user['permalink'] }}</td>
-                                        <td>{{ user['login'] }}</td>
-                                        <td>{{ user['is_admin'] }}</td>
-                                        <td><a href="/remove_user/{{ user['permalink'] }}">Remove</a></td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-
-                                <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><a href="/add_user">Add User</a></td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                      {% endif %}
+                      <div class="table-responsive" id="member_table_holder">
                       </div>
                   </div>
                 </div>

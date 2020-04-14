@@ -1,4 +1,6 @@
-
+$(function() {
+    console.log( "ready!" );
+});
 function chatContent(id) {
     $('button.list-group-item.active').removeClass("active");
     $('#'+id).addClass("active");
@@ -17,9 +19,6 @@ function chatContent(id) {
 
 
 function deleteChannel(){
-    // remove the button
-    //$('#'+id).remove()
-
     // send POST request to delete the channel
     $.ajax({
         type: "POST",
@@ -30,7 +29,11 @@ function deleteChannel(){
         async: true,
         //json object to sent to the authentication url
         success: function (data){
-            $('#'+data['permalink']).remove()
+            $('#'+data['permalink']).remove();
+            $('#'+data['next_active']).addClass("active");
+            $("#member_table").empty();
         }
     })
+
+    // will need to automatically change active channel to another one
 }

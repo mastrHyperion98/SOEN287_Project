@@ -156,9 +156,10 @@ def my_channels(db):
     list = []
     for channel in channels:
         list.append(channel.to_json())
-
-    if len(list) > 0:
+    # check if current channel list is empty
+    if session['channel_list'] == "" and len(channels) >0:
         session['channel_list'] = channels[0].permalink
+    #else no channels exists
     return json.dumps(list)
 
 
