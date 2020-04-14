@@ -25,8 +25,8 @@ function deleteChannel(){
         type: "POST",
         //the url where you want to sent the userName and password to
         url: '/delete/channel',
-        //dataType: 'json',
-        //contentType: 'application/json',
+        dataType: 'json',
+        contentType: 'application/json',
         async: true,
         //json object to sent to the authentication url
         success: function (data){

@@ -118,7 +118,6 @@ def channels():
 def change_channel():
     permalink = request.json['permalink']
     session['channel_list'] = permalink
-    print(session['channel_list'])
 
     return str(''), 200
 
