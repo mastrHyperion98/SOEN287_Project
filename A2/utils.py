@@ -157,7 +157,8 @@ def my_channels(db):
     for channel in channels:
         list.append(channel.to_json())
 
-    session['channel_list'] = channels[0].permalink
+    if len(list) > 0:
+        session['channel_list'] = channels[0].permalink
     return json.dumps(list)
 
 
@@ -180,6 +181,8 @@ def get_members(db):
     permalink = session['channel_list']
     channel = Channels.query.filter_by(permalink=permalink).first()
     # next get the members of the channel
+    if channel is None:
+        return json.dumps([])
     list_of_members = channel.members
 
     list = []
@@ -230,14 +233,22 @@ def deleteActiveChannel(db):
     channel = db.session.query(Channels).filter_by(permalink=session['channel_list']).first()
     if channel is None:
         return False
+
     # we also need to remove all members therefore
     members = channel.members
 
     for member in members:
         db.session.delete(member)
-    
+
     db.session.delete(channel)
     db.session.commit()
+
+    channel = Channels.query.filter_by(admin_id=session['user']['id']).first()
+    if channel is None:
+        session['channel_list'] = ""
+    else:
+        session['channel_list'] = channel.permalink
+
     return True
 
 
