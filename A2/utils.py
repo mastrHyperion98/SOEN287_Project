@@ -245,7 +245,7 @@ def deleteChannel(db, permalink):
     return True
 
 
-def remove_member(db, permalink):
+def remove_member(db):
     user_permalink = request.json['permalink']
     channel_permalink = request.json['channel']
     channel = db.session.query(Channels).filter_by(permalink=channel_permalink).first()
@@ -254,7 +254,6 @@ def remove_member(db, permalink):
 
     for member in members:
         # print(member.user_id)
-        print(len(members))
         if member.user_id == user_id:
             db.session.delete(member)
             db.session.commit()

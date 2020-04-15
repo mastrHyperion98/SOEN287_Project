@@ -142,8 +142,7 @@ def remove_channel_member():
     if remove_member(db):
         return "", 200
     else:
-        print("FAILED")
-        return "", 500
+        return "", 405
 
 
 @app.route('/add/member', methods=['POST', 'GET'])

@@ -52,12 +52,15 @@ function createMembershipTable(data){
                     .append("<td class=\"text-center\">" + options);
                 $tbody.children('tr:last').attr('id', 'tr_'+permalink);
             });
-            $tbody.append('<tr />').children('tr:last')
-                .append("<td class=\"text-center\"> </td>")
-                .append("<td class=\"text-center\"> </td>")
-                .append("<td class=\"text-center\"> </td>")
-                .append("<td class=\"text-center\"> </td>")
-                .append('<td class="text-center"><a href="/add/member">Add User</a></td>');
+
+            if(data.length !== 0) {
+                $tbody.append('<tr />').children('tr:last')
+                    .append("<td class=\"text-center\"> </td>")
+                    .append("<td class=\"text-center\"> </td>")
+                    .append("<td class=\"text-center\"> </td>")
+                    .append("<td class=\"text-center\"> </td>")
+                    .append('<td class="text-center"><a href="/add/member">Add User</a></td>');
+            }
             // add table to dom
             $table.appendTo(master);
 }
@@ -77,7 +80,6 @@ function changeChannel(id) {
         async: true,
         //json object to sent to the authentication url
         success: function (data){
-            console.log("CHANGE: " + data);
             createMembershipTable(data);
         }
     });
@@ -111,4 +113,23 @@ function deleteChannel(){
     })
 
     // will need to automatically change active channel to another one
+}
+
+function removeUser(user){
+      var data = {"permalink":user, 'channel':sessionStorage.current_admin_channel}
+    $.ajax({
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        url: '/remove/member',
+        contentType: 'application/json',
+        async: true,
+        //json object to sent to the authentication url
+        data: JSON.stringify(data),
+        success: function (){
+            // delete row with tr_permalink
+            var row = $('#tr_'+user);
+            row.remove();
+            console.log(row.val())
+        }
+    });
 }
