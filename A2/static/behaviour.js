@@ -1,7 +1,7 @@
 $(function() {
     console.log( "ready!" );
 });
-function chatContent(id) {
+function changeChannel(id) {
     $('button.list-group-item.active').removeClass("active");
     $('#'+id).addClass("active");
     localStorage.current_admin_channel=id;

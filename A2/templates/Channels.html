@@ -20,7 +20,7 @@
                <ul style="list-style-type:none;">
                 {% for channel in channels %}
                        <li>
-                           <button id='{{ channel['permalink']}}' type="button" onclick="chatContent('{{ channel['permalink']}}')"
+                           <button id='{{ channel['permalink']}}' type="button" onclick="changeChannel('{{ channel['permalink']}}')"
                                    class="list-group-item list-group-item-action channel_btn">
                            {{ channel['name']}}
                             </button>

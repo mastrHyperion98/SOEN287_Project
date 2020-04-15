@@ -112,14 +112,6 @@ def channels():
     channel = json.loads(my_channels(db))
     return render_template("Channels.html", channels=channel)
 
-@app.route('/changeChannel', methods=['POST'])
-@login_required
-def change_channel():
-    permalink = request.json['permalink']
-    session['channel_list'] = permalink
-
-    return str(''), 200
-
 
 @app.route('/delete/channel', methods=['POST'])
 @login_required
@@ -142,8 +134,7 @@ def active_channel():
 @app.route('/channels/members/<string:permalink>', methods=['GET'])
 @login_required
 def channel_members(permalink):
-    members = get_channel_members(permalink)
-
+    members = get_channel_members(db,permalink)
     return members, 200
 
 

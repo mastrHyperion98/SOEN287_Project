@@ -157,7 +157,6 @@ def my_channels(db):
     for channel in channels:
         list.append(channel.to_json())
     # else no channels exists
-    print(list)
     return json.dumps(list)
 
 
@@ -175,21 +174,19 @@ def member_of(db):
     return json.dumps(list)
 
 
-def get_channel_members(permalink):
+def get_channel_members(db,permalink):
     # fetch our channel from the databas
     channel = Channels.query.filter_by(permalink=permalink).first()
     # next get the members of the channel
     # check if we have the authority to look!
-    if session['user']['id'] != channel.admin_id:
+    if channel is None or session['user']['id'] != channel.admin_id:
         return json.dumps([])
 
-    if channel is None:
-        return json.dumps([])
     list_of_members = channel.members
 
     list = []
     for members in list_of_members:
-        user = Users.query.filter_by(id=members.id).first()
+        user = db.session.query(Users).filter_by(id=members.user_id).first()
         if user is not None:
             entry = user.to_json()
             entry['is_admin'] = members.is_admin
@@ -271,7 +268,7 @@ def add_member(form, db):
     if user is None:
         flash(u'This user does not exist!', 'error')
         return False
-    
+
     ch_permalink=form.channel_permalink.data
     channel = Channels.query.filter_by(permalink=ch_permalink).first()
     channel_id = channel.id
