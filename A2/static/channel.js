@@ -2,7 +2,6 @@ $(function() {
     console.log( "ready2!" );
     setActiveChannel();
     // print to
-    console.log(sessionStorage.current_admin_channel)
     $.ajax({
         type: "GET",
         //the url where you want to sent the userName and password to
@@ -12,7 +11,6 @@ $(function() {
         async: true,
         //json object to sent to the authentication url
         success: function (data){
-            console.log(data);
             createMembershipTable(data);
         }
     });

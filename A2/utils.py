@@ -1,4 +1,5 @@
 import string
+from datetime import datetime, date
 from functools import wraps
 
 import bcrypt
@@ -46,12 +47,14 @@ def verify_login(form, db):
     email = form.email.data
     password = form.password.data
     # check database to see if we find user with given email
-    user = Users.query.filter_by(email=email).first()
+    user = db.session.query(Users).filter_by(email=email).first()
     if user is None:
         flash(u'Email is not registered to a user!', 'error')
         return False
     elif bcrypt.checkpw(password.encode('utf8'), user.password.encode('utf8')):
         # login_the user
+        user.login = datetime.now()
+        db.session.commit()
         session['user'] = user.to_json()
         return True
     else:

@@ -1,5 +1,6 @@
 {% extends "base_home.html" %}
 {% block head %}{{ super() }}
+    <script src="../static/dashboard.js"></script>
 {% endblock %}
 {% block title %}{{ super() }} Dashboard {% endblock %}
 {% block content %}
@@ -14,12 +15,12 @@
             </div>
             <hr/>
             <div id="nav_channels" class="container-fluid d-flex justify-content-center">
-               <div id="channel_select" class="list-group list-group-btn">
+               <div id="dash_channel_select" class="list-group list-group-btn">
                   <ul style="list-style-type:none;">
                    {% for channel in channels %}
                        <li>
                            <button id='{{ channel['permalink']}}' type="button" onclick="chatContent('{{ channel['permalink'] }}')"
-                                   class="list-group-item list-group-item-action">
+                                   class="list-group-item list-group-item-action channel_btn">
                                {{ channel['name']}}
                            </button>
                        </li>
