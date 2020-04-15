@@ -19,7 +19,7 @@
                   <ul style="list-style-type:none;">
                    {% for channel in channels %}
                        <li>
-                           <button id='{{ channel['permalink']}}' type="button" onclick="chatContent('{{ channel['permalink'] }}')"
+                           <button id='{{ channel['permalink']}}' type="button" onclick="changeDashboardChannel('{{ channel['permalink'] }}')"
                                    class="list-group-item list-group-item-action channel_btn">
                                {{ channel['name']}}
                            </button>
@@ -40,7 +40,7 @@
         </div>
         <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
             <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Type a message" aria-label="message" aria-describedby="basic-addon2">
+                    <input id='message_input' type="text" class="form-control" placeholder="Type a message" aria-label="message" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                      <button class="btn btn-primary btn-outline-primary" type="button">Submit</button>
                  </div>

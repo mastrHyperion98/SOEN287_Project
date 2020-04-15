@@ -1,6 +1,6 @@
 {% extends "base_home.html" %}
 {% block head %}{{ super() }}
-
+    <script src="../static/form_start.js"></script>
     <script src="../static/channel.js"></script>
 {% endblock %}
 {% block title %}{{ super() }} Channels{% endblock %}
@@ -13,7 +13,11 @@
         <div id="channel_nav" class="container-fluid overflow-auto" >
             <div class="row d-flex justify-content-center">
                 <h3>Channels</h3>
+             </div>
+            <div class="row d-flex justify-content-center">
+                <p id="user"></p>
             </div>
+
             <hr/>
             <div id="nav_channels" class="container-fluid d-flex justify-content-center">
                <div id="channel_select" class="list-group list-group-btn">

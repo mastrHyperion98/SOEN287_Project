@@ -36,12 +36,18 @@ def index():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    if session.get('user'):
+        next_page = session.get('next', url_for("dashboard"))
+        session['next'] = url_for("dashboard")
+        return redirect(next_page)
+
     form = LoginForm()
     if form.validate_on_submit():
         if verify_login(form, db):
             next_page = session.get('next', url_for("dashboard"))
             session['next'] = url_for("dashboard")
             return redirect(next_page)
+
     return render_template("Login.html", form=form)
 
 
@@ -49,8 +55,8 @@ def login():
 def recover():
     form = RecoverPasswordForm()
     if form.validate_on_submit():
-       if recover_password(form, mail, db):
-           return render_template("Forgot_Password.html", form=form)
+        if recover_password(form, mail, db):
+            return render_template("Forgot_Password.html", form=form)
     return render_template("Forgot_Password.html", form=form)
 
 
@@ -116,7 +122,6 @@ def channels():
 @app.route('/delete/channel/<string:permalink>', methods=['POST'])
 @login_required
 def delete_channel(permalink):
-
     if deleteChannel(db, permalink):
         return "", 200
     else:
@@ -132,7 +137,7 @@ def active_channel():
 @app.route('/channels/members/<string:permalink>', methods=['GET'])
 @login_required
 def channel_members(permalink):
-    members = get_channel_members(db,permalink)
+    members = get_channel_members(db, permalink)
     return members, 200
 
 
@@ -153,6 +158,15 @@ def add_channel_member():
         add_member(form, db)
 
     return render_template('AddMember.html', form=form)
+
+
+@app.route('/user/username', methods=['GET'])
+def get_user_username():
+    if session.get('user'):
+        username = session['user']['username']
+        return json.dumps({'username': username}), 200
+
+    return json.dumps({'username': 'You are not logged in'}), 200
 
 
 @app.route('/download/<string:permalink>')
