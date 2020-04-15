@@ -29,7 +29,7 @@
            {% endif %}
            {% endwith %}
        </div>
-       <div class="row justify-content-center">
+       <div id='form_container' class="row justify-content-center">
            {{ content_form(form, '/add/member')}}
       </div>
     <div class="col-sm6 text-center" style="padding-top: 10px;">
@@ -38,4 +38,12 @@
 </div>
 </div>
 </div>
+    <script>
+    $(function() {
+    //sets the value of the field to the current channel
+    //sets the value of the field to the current channel
+    var container = $('#channel_permalink');
+    container.val(localStorage.current_admin_channel);
+    });
+    </script>
 {% endblock %}

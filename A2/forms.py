@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextField, SubmitField, PasswordField, SelectField
+from wtforms import StringField, TextField, HiddenField, SubmitField, PasswordField, SelectField
 from wtforms.fields.html5 import EmailField, DateField, IntegerField
 from wtforms.validators import InputRequired, Email, Length, Regexp, ValidationError, NumberRange, EqualTo, DataRequired, Optional
 
@@ -33,6 +33,7 @@ class CreateChannelForm(FlaskForm):
 
 class AddMemberForm(FlaskForm):
     permalink = StringField('Permalink:', validators=[InputRequired(), Length(16,16)])
+    channel_permalink = HiddenField('ChannelPermalink')
     submit = SubmitField("Add User")
 
 

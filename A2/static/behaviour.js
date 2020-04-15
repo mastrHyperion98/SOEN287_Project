@@ -4,6 +4,7 @@ $(function() {
 function chatContent(id) {
     $('button.list-group-item.active').removeClass("active");
     $('#'+id).addClass("active");
+    localStorage.current_admin_channel=id;
     var data = {"permalink":id}
     $.ajax({
         type: "POST",

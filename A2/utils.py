@@ -47,7 +47,6 @@ def verify_login(form, db):
     password = form.password.data
     # check database to see if we find user with given email
     user = Users.query.filter_by(email=email).first()
-    session['channel_list'] = ""
     if user is None:
         flash(u'Email is not registered to a user!', 'error')
         return False
@@ -157,10 +156,8 @@ def my_channels(db):
     list = []
     for channel in channels:
         list.append(channel.to_json())
-    # check if current channel list is empty
-    if session['channel_list'] == "" and len(channels) > 0:
-        session['channel_list'] = channels[0].permalink
     # else no channels exists
+    print(list)
     return json.dumps(list)
 
 
@@ -178,11 +175,14 @@ def member_of(db):
     return json.dumps(list)
 
 
-def get_members(db):
+def get_channel_members(permalink):
     # fetch our channel from the databas
-    permalink = session['channel_list']
     channel = Channels.query.filter_by(permalink=permalink).first()
     # next get the members of the channel
+    # check if we have the authority to look!
+    if session['user']['id'] != channel.admin_id:
+        return json.dumps([])
+
     if channel is None:
         return json.dumps([])
     list_of_members = channel.members
@@ -232,8 +232,8 @@ def recover_password(form, mail, db):
     return True
 
 
-def deleteActiveChannel(db):
-    channel = db.session.query(Channels).filter_by(permalink=session['channel_list']).first()
+def deleteChannel(db, permalink):
+    channel = db.session.query(Channels).filter_by(permalink=permalink).first()
     if channel is None:
         return False
 
@@ -245,23 +245,20 @@ def deleteActiveChannel(db):
 
     db.session.delete(channel)
     db.session.commit()
-
-    channel = Channels.query.filter_by(admin_id=session['user']['id']).first()
-    if channel is None:
-        session['channel_list'] = ""
-    else:
-        session['channel_list'] = channel.permalink
-
     return True
 
 
-def remove_member(db):
+def remove_member(db, permalink):
     user_permalink = request.json['permalink']
-    channel = db.session.query(Channels).filter_by(permalink=session['channel_list']).first()
+    channel_permalink = request.json['channel']
+    channel = db.session.query(Channels).filter_by(permalink=channel_permalink).first()
     members = channel.members
+    user_id = Users.query.filter_by(permalink=user_permalink).first().id
 
     for member in members:
-        if member.permalink == user_permalink:
+        # print(member.user_id)
+        print(len(members))
+        if member.user_id == user_id:
             db.session.delete(member)
             db.session.commit()
             return True
@@ -271,7 +268,12 @@ def remove_member(db):
 
 def add_member(form, db):
     user = Users.query.filter_by(permalink=form.permalink.data).first()
-    channel = Channels.query.filter_by(permalink=session['channel_list']).first()
+    if user is None:
+        flash(u'This user does not exist!', 'error')
+        return False
+    
+    ch_permalink=form.channel_permalink.data
+    channel = Channels.query.filter_by(permalink=ch_permalink).first()
     channel_id = channel.id
 
     if channel is None:
@@ -279,6 +281,12 @@ def add_member(form, db):
         return False
 
     member = Members(channel_id=channel_id, user_id=user.id)
+    members = channel.members
+
+    for people in members:
+        if people.user_id == user.id:
+            flash(u'This user is already a member of ' + channel.name, 'error')
+            return False
 
     db.session.add(member)
     try:
