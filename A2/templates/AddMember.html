@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block head %}{{ super() }}
+    <script src="../static/form_start.js"></script>
+{% endblock %}
 {% block title %}{{ super() }} Login or Sign Up{% endblock %}
 
 {% block content %}
@@ -34,6 +37,11 @@
       </div>
     <div class="col-sm6 text-center" style="padding-top: 10px;">
         <button type="button" class="btn btn-secondary" onclick="window.location.href = '/channels';">Cancel</button>
+    </div>
+    <div class="col justfiy-content-start">
+            <br>
+            <hr/>
+            <p id="user"></p>
     </div>
 </div>
 </div>
