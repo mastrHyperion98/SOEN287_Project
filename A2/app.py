@@ -113,14 +113,12 @@ def channels():
     return render_template("Channels.html", channels=channel)
 
 
-@app.route('/delete/channel', methods=['POST'])
+@app.route('/delete/channel/<string:permalink>', methods=['POST'])
 @login_required
-def delete_channel():
-    permalink = session['channel_list']
+def delete_channel(permalink):
 
-    if deleteChannel(db):
-        list = {'permalink': permalink, 'next_active': session['channel_list']}
-        return json.dumps(list), 200
+    if deleteChannel(db, permalink):
+        return "", 200
     else:
         return '', 500
 

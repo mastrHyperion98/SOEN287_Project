@@ -50,6 +50,7 @@ function createMembershipTable(data){
                     .append("<td class=\"text-center\">" + item['login'] + "</td>")
                     .append("<td class=\"text-center\">" + item['is_admin'] + "</td>")
                     .append("<td class=\"text-center\">" + options);
+                $tbody.children('tr:last').attr('id', 'tr_'+permalink);
             });
             $tbody.append('<tr />').children('tr:last')
                 .append("<td class=\"text-center\"> </td>")
@@ -80,5 +81,34 @@ function changeChannel(id) {
             createMembershipTable(data);
         }
     });
+}
 
+function deleteChannel(){
+    // send POST request to delete the channel
+    $.ajax({
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        url: '/delete/channel/'+sessionStorage.current_admin_channel,
+        async: true,
+        //json object to sent to the authentication url
+        success: function (){
+            $('#'+sessionStorage.current_admin_channel).remove();
+            setActiveChannel();
+            $.ajax({
+                type: "GET",
+                //the url where you want to sent the userName and password to
+                url: '/channels/members/'+ sessionStorage.current_admin_channel,
+                dataType: 'json',
+                contentType: 'application/json',
+                async: true,
+                //json object to sent to the authentication url
+                success: function (data){
+                    console.log("CHANGE: " + data);
+                    createMembershipTable(data);
+                }
+        });
+        }
+    })
+
+    // will need to automatically change active channel to another one
 }
