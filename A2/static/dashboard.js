@@ -16,29 +16,7 @@ $(function() {
     // print to
     // get all messages of the channel
     // if a dashboard_channel exist
-        $.ajax({
-            type: "GET",
-            //the url where you want to sent the userName and password to
-            url: '/messages/all/' + sessionStorage.current_dashboard_channel,
-            dataType: 'json',
-            contentType: 'application/json',
-            async: true,
-            //json object to sent to the authentication url
-            success: function (data) {
-                var master = $('#chat') // our container to which we want to append our messages
-                // loop will be very similar to that of the table from channels
-                console.log("ENTER DASHBOARD CODE")
-            $.each(data, function(obj, item) {
-
-                var $div = $('<div>');
-                $div.attr("class", "message");
-                $div.append("<span class='name'>"+item['username']+"</span>")
-                    .append("<p class='message_content'>"+item['content']+"</p>")
-                    .append("<span class='time'>"+item['sent']+"</span>");
-                $div.appendTo(master);
-            });
-            }
-        });
+    refreshDashboard();
 });
 /* id for container = chat
       <div class="message">
@@ -60,19 +38,7 @@ function changeDashboardChannel(id) {
     $('button.list-group-item.active').removeClass("active");
     $('#'+id).addClass("active");
     sessionStorage.current_dashboard_channel=id;
-    /*
-        $.ajax({
-        type: "GET",
-        //the url where you want to sent the userName and password to
-        url: '/user/username'+ sessionStorage.current_admin_channel,
-        dataType: 'json',
-        contentType: 'application/json',
-        async: true,
-        //json object to sent to the authentication url
-        success: function (data){
-            createMembershipTable(data);
-        }
-    });*/
+    refreshDashboard();
 }
 
 
@@ -86,17 +52,44 @@ function sendMessage(){
             type: "POST",
             //the url where you want to sent the userName and password to
             url: '/messages/add',
-            dataType: 'json',
             contentType: 'application/json',
             async: true,
             data: JSON.stringify(data),
             //json object to sent to the authentication url
             success: function () {
                 console.log('MESSAGE POSTED');
+                refreshDashboard();
             }
         });
     }
     else{
         console.log("EMPTY MESSAGE --- NOT SENT");
     }
+}
+
+function refreshDashboard(){
+            $.ajax({
+            type: "GET",
+            //the url where you want to sent the userName and password to
+            url: '/messages/all/' + sessionStorage.current_dashboard_channel,
+            dataType: 'json',
+            contentType: 'application/json',
+            async: true,
+            //json object to sent to the authentication url
+            success: function (data) {
+                var master = $('#chat') // our container to which we want to append our messages
+                master.empty();
+                // loop will be very similar to that of the table from channels
+                console.log("ENTER DASHBOARD CODE")
+            $.each(data, function(obj, item) {
+
+                var $div = $('<div>');
+                $div.attr("class", "message");
+                $div.append("<span class='name'>"+item['username']+"</span>")
+                    .append("<p class='message_content'>"+item['content']+"</p>")
+                    .append("<span class='time'>"+item['sent']+"</span>");
+                $div.appendTo(master);
+            });
+            }
+        });
 }
