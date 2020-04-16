@@ -26,7 +26,8 @@ db = SQLAlchemy(app)
 mail = Mail(app)
 # have to import after as some imports depend on db being defined
 from utils import validate_account, verify_login, find_user, login_required, update_user, add_channel, my_channels, \
-    member_of, recover_password, deleteChannel, remove_member, add_member, get_channel_members
+    member_of, recover_password, deleteChannel, remove_member, add_member, get_channel_members, get_all_messages, \
+    add_message, get_last_messages
 
 
 @app.route('/')
@@ -158,6 +159,24 @@ def add_channel_member():
         add_member(form, db)
 
     return render_template('AddMember.html', form=form)
+
+
+@app.route('/messages/all/<string:permalink>', methods=['GET'])
+@login_required
+def get_messages_all(permalink):
+    messages = get_all_messages(permalink)
+
+    return messages, 200
+
+
+@app.route('/messages/add', methods=['POST'])
+@login_required
+def add_messages():
+    content = request.json['content']
+    channel_perm = request.json['permalink']
+    if add_message(db, channel_perm, content):
+        return "", 200
+    return "", 500
 
 
 @app.route('/user/username', methods=['GET'])

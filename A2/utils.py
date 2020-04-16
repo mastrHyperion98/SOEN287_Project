@@ -8,6 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from model.users import Users
 from model.channels import Channels
 from model.members import Members
+from model.messages import Messages
 from flask import session, flash, redirect, url_for, request, json
 from flask_mail import Mail, Message
 
@@ -177,7 +178,7 @@ def member_of(db):
     return json.dumps(list)
 
 
-def get_channel_members(db,permalink):
+def get_channel_members(db, permalink):
     # fetch our channel from the databas
     channel = Channels.query.filter_by(permalink=permalink).first()
     # next get the members of the channel
@@ -271,7 +272,7 @@ def add_member(form, db):
         flash(u'This user does not exist!', 'error')
         return False
 
-    ch_permalink=form.channel_permalink.data
+    ch_permalink = form.channel_permalink.data
     channel = Channels.query.filter_by(permalink=ch_permalink).first()
     channel_id = channel.id
 
@@ -295,6 +296,55 @@ def add_member(form, db):
     except IntegrityError:
         # cancel all changes
         flash(u'This user does not exist!', 'error')
+        db.session.rollback()
+        return False
+
+
+# returns a list of unrecieved messages
+def get_last_messages(last_id, channel_perm):
+    channel = Channels.query.filter_by(permalink=channel_perm).first()
+    if channel is None:
+        return json.dumps({})
+    messages = channel.messages
+
+    unrecieved = []
+    for message in messages:
+        if message.id > last_id:
+            unrecieved.append(message.to_json())
+
+    return json.dumps(unrecieved)
+
+
+# Get all the messages for that channel
+def get_all_messages(channel_perm):
+    channel = Channels.query.filter_by(permalink=channel_perm).first()
+
+    if channel is None:
+        return json.dumps({})
+    messages = channel.messages
+
+    unrecieved = []
+    for message in messages:
+        unrecieved.append(message.to_json())
+
+    return json.dumps(unrecieved)
+
+
+def add_message(db, channel_perm, content):
+    channel = Channels.query.filter_by(permalink=channel_perm).first()
+    if channel is None:
+        return False
+
+    sender = session['user']['username']
+    # time sent will be default to the current time
+    message = Messages(channel_id=channel.id, username=sender, content=content)
+
+    db.session.add(message)
+    try:
+        db.session.commit()
+        return True
+    except IntegrityError:
+        # cancel all changes
         db.session.rollback()
         return False
 

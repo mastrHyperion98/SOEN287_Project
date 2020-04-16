@@ -9,6 +9,7 @@ class Channels(db.Model):
     name = db.Column('name', db.String(16))
     permalink = db.Column('permalink', db.String(16), unique=True)
     members = db.relationship('Members', backref='members')
+    messages = db.relationship('Messages', backref='messages')
 
     def to_json(self):
         """Returns the instance of product as a JSON
