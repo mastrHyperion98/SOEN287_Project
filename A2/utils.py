@@ -240,9 +240,12 @@ def deleteChannel(db, permalink):
 
     # we also need to remove all members therefore
     members = channel.members
-
+    messages = channel.messages
     for member in members:
         db.session.delete(member)
+
+    for message in messages:
+        db.session.delete(message)
 
     db.session.delete(channel)
     db.session.commit()
