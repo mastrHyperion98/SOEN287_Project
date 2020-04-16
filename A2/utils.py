@@ -97,7 +97,7 @@ def update_user(form, db):
     elif is_password:
         flash(u'The password has been updated!', 'info')
     else:
-        flash(u'An Error has occurred and the fields cannot be updated', 'error')
+        flash(u'The fields are empty. Nothing has been changed!', 'error')
         return False
 
     db.session.commit()
