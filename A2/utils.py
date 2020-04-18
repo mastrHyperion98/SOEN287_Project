@@ -1,3 +1,7 @@
+# Written by Steven Smith, 40057065
+# Written for SOEN 287 W2020 Concordia
+
+# Contains useful methods to help us write in the DB and keep app.py clean and only contain our route code
 import string
 from datetime import datetime, date
 from functools import wraps
@@ -352,6 +356,9 @@ def add_message(db, channel_perm, content):
         return False
 
 
+# Define our own login_required decorator
+# Was too lazy to modify the users object used for the relational database to inherit the needed fields needed for Flask
+# -Login. Functionality should remain the same, dont know about security.
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):

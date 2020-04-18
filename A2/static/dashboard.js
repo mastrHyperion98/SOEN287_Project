@@ -1,3 +1,13 @@
+/*
+Created by Steven Smith 40057065
+Created for: SOEN 287 W 2020 Concordia
+
+scripts for controlling dashboard element and fetching messages
+
+the script does not check for new incoming messages, but they do appear on refresh
+I didnt have the time to implement it, although the backend has a function created to kinda accomodate a possible future
+implementation. I didnt feel that it was necessary to meet the criteria needed for A3
+ */
 $(function() {
     setActiveDasboardChannel();
         $.ajax({

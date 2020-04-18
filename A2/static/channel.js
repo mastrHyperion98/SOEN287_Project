@@ -1,3 +1,10 @@
+/*
+Created by Steven Smith 40057065
+Created for: SOEN 287 W 2020 Concordia
+
+scripts for controlling the behaviour and actions of the channel html page. Some code is similar to the dashboard but it is different
+sessionStorage is used to keep track of the current active channel for adding, removing users or deleting channels.
+ */
 $(function() {
     console.log( "ready2!" );
     setActiveChannel();
