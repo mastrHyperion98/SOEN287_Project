@@ -1,3 +1,5 @@
+## REPO STRUCTURE CURRENTLY UNDER REVISION
+
 # SOEN287_Project
 
 This is a repository that serves as an agglomeration of Concordia's Winter 2020 SOEN 287 Web Development Project.
