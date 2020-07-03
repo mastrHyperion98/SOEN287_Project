@@ -37,7 +37,6 @@ def index():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    print("Updates")
     if session.get('user'):
         next_page = session.get('next', url_for("dashboard"))
         session['next'] = url_for("dashboard")
