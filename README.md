@@ -7,7 +7,7 @@ Chatty was developed as an open source communication website during my Concordia
 * Download the project folder
 * cd into the project folder and type <code>source venv/bin/activate</code> to make the venv project active. 
 * Install the required packages by typing <code>pip install -r requirements.txt</code>. This command will automatically install all the packages that python will need to run the project. 
-* Next execute the quick_start.sh (the current script only supports UNIX/Linux)  
+* Next execute the quick_launch.sh (the current script only supports UNIX/Linux). This can be done by typing <code>./quick_launch.sh</code> or <code>quick_launch.sh</code> in the command prompt. (Again this file will only setup for UNIX/Linux) 
 
 # Future Plans
 
@@ -17,6 +17,7 @@ I do have the intention of trying to polish up the website at some point in the 
 * Convert the project to use Docker
 * Fix scaling issues at some resolutions
 * Remove some of the unwanted UI elements that were enforced during the course guidelines. 
+* Update instructions with Windows equivalent instructions.
 
 # Tools Used
 
